@@ -9,7 +9,6 @@ interface Weapon {
 }
 interface Skill {
   name: string;
-  level: number | null;
   dice: string;
 }
 export interface NPC {

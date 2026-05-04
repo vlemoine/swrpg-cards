@@ -7,7 +7,9 @@
 	<div class="ridge"></div>
 	<div class="ridge"></div>
 	<div class="ridge">
-		<div class="name">{name}</div>
+		<div class="name">
+			<span>{name}</span>
+		</div>
 	</div>
 	<div class="value">{value}</div>
 </div>
@@ -15,61 +17,66 @@
 <style lang="scss">
 	@use 'sass:math';
 	@function size($val) {
-		$calc:  math.div($val * 2, 16);
+		$calc: math.div($val * 2, 16);
 		@return calc(#{$calc} * var(--scale, 1rem));
 	}
 	.characteristic {
 		display: grid;
-		gap: size(1.9);
-		width: size(120);
+		gap: size(2);
 		position: relative;
+		width: size(119);
 	}
 	.value {
 		aspect-ratio: 1/1;
 		background-color: #fff;
 		border-radius: 100%;
-		border: size(2) solid #000;
+		border: size(2.5) solid #000;
 		box-shadow:
-			inset 0 0 0 size(2) #fff,
-			inset 0 0 0 size(3) #000;
+			inset 0 0 0 size(3.5) #fff,
+			inset 0 0 0 size(4.5) #000;
 		box-sizing: border-box;
 		display: grid;
+		font-family: 'Teuton Fett';
+		font-size: size(56.7);
 		left: 0;
 		margin: auto;
+		padding-top: .2ex;
 		place-items: center;
 		position: absolute;
 		right: 0;
-		top: size(6);
-		width: 70%;
-		font-size: size(56.7);
-		font-family: 'Teuton Fett';
 		text-box-trim: trim-both;
+		text-indent: -.025ex;
+		top: size(6);
+		width: size(85);
 	}
 	.ridge {
-		height: size(21.2);
 		background-color: #546449;
-		border-radius: size(8);
+		border-radius: size(7);
+		box-sizing: border-box;
 		corner-shape: bevel;
 		display: flex;
 		flex-direction: column;
+		height: size(21);
 		justify-content: flex-end;
-		box-sizing: border-box;
 		padding: size(4);
 		&:has(.name) {
 			height: size(52);
 		}
 	}
 	.name {
-		display: grid;
-		place-items: center;
-		border-radius: size(6);
-		flex: 0 0 size(22);
-		text-align: center;
 		background-color: #751012;
-		color: #fff;
-		text-transform: uppercase;
-		font-size: size(20.6);
-		line-height: 0;
-		font-family: 'Teuton Mager';
+		border-radius: size(5);
+		box-sizing: border-box;
+		flex: 0 0 size(22);
+		padding-top: size(1);
+		text-align: center;
+		span {
+			-webkit-font-smoothing: antialiased;
+			color: #fff;
+			font: size(21) 'Teuton Mager';
+			line-height: 0;
+			text-transform: uppercase;
+			vertical-align: middle;
+		}
 	}
 </style>

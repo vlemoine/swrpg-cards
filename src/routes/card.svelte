@@ -10,7 +10,7 @@
 	}
 	let { data }: Props = $props();
 	let charLabels = ['brawn', 'agility', 'intellect', 'cunning', 'willpower', 'presence'];
-	let statLabels = ['wounds', 'soak value', 'm/r defense'];
+	let statLabels = ['wounds', 'soak value', 'm/r defense', 'strain'];
 </script>
 
 <div class="card {data.type}">
@@ -20,33 +20,33 @@
 	<div class="content">
 		<div class="summary">
 			<div class="charateristics">
-				{#each charLabels as name, i}
+				{#each charLabels as name, i (i)}
 					<Characteristic {name} value={data.characteristics[i]} />
 				{/each}
 			</div>
 			<div class="stats">
-				{#each statLabels as name, i}
-					<Stat {name} value={data.stats[i]} />
+				{#each data.stats as value, i (i)}
+					<Stat name={statLabels[i]} {value} />
 				{/each}
 			</div>
 		</div>
 		<div class="specs">
 			<div class="skills">
 				<SpecTitle name="Skills" isGroup={data.isGroup} />
-				{#each data.skills as skill}
+				{#each data.skills as skill, i (i)}
 					<span class="skill"
-						>{skill.name} {skill.level} (<span class="dice"><Dice dice={skill.dice} /></span>)</span
+						>{skill.name} <Dice dice={skill.dice} /></span
 					>
 				{/each}
 			</div>
 			<div class="weapons">
 				<SpecTitle name="Weapons" />
-				{#each data.weapons as weapon}
+				{#each data.weapons as weapon, i (i)}
 					<div class="weapon">
 						<span class="weapon-name">{weapon.name}</span> ({weapon.type}; Damage {weapon.dmg};
 						Critical {weapon.crit}; Range ({weapon.range});
 						{#if weapon.qualities.length}
-							{#each weapon.qualities as quality}
+							{#each weapon.qualities as quality, i (i)}
 								{quality.name}{#if quality.value}{quality.value}{/if}
 							{/each}
 						{:else}-
@@ -57,7 +57,7 @@
 			<div class="talents">
 				<SpecTitle name="Talents" />
 				{#if data.talents.length === 0}-{/if}
-				{#each data.talents as talent}
+				{#each data.talents as talent, i (i)}
 					<span class="talent"
 						>{talent.name}{#if talent.value}
 							{talent.value}{/if}</span
@@ -71,7 +71,7 @@
 			<div class="gear">
 				<SpecTitle name="Gear" />
 				{#if data.gear.length === 0}-{/if}
-				{#each data.gear as gear}
+				{#each data.gear as gear, i (i)}
 					<span class="gear">{gear}</span>
 				{/each}
 			</div>
@@ -85,45 +85,20 @@
 		$calc: math.div($val, 8);
 		@return calc(#{$calc} * var(--scale, 1rem));
 	}
-	@font-face {
-		font-family: 'EotE Dice';
-		src: url('$lib/assets/fonts/sw-rpg-icons.woff');
-	}
-	@font-face {
-		font-family: 'Elektra Medium Pro';
-		src: url('$lib/assets/fonts/Elektra-Medium-Pro.woff2');
-	}
-	@font-face {
-		font-family: 'Elektra Medium Pro';
-		font-weight: 700;
-		src: url('$lib/assets/fonts/Elektra-Medium Pro-Bold.woff2');
-	}
-	@font-face {
-		font-family: 'ITC Symbol Book';
-		src: url('$lib/assets/fonts/SymbolITCbyBT-Book.woff2');
-	}
-	@font-face {
-		font-family: 'Teuton Fett';
-		src: url('$lib/assets/fonts/TeutonFett.woff2');
-	}
-	@font-face {
-		font-family: 'Teuton Mager';
-		src: url('$lib/assets/fonts/TeutonMager.woff2');
-	}
 	.card {
-		--scale: 10px;
-		--color: red;
-		--minion: #8e5a07;
-		--rival: #164203;
-		--nemesis: #741213;
+		--scale: 8px;
 		--bg: url('$lib/assets/bg/card.jpg');
-		background-color: tan;
+		--minion: #8e5a07;
+		--nemesis: #741213;
+		--rival: #164203;
 		aspect-ratio: 2.5/3.5;
-		padding-top: size(35.4);
-		width: size(750);
-		box-sizing: border-box;
+		background-color: red;
 		background-size: cover;
+		box-sizing: border-box;
 		margin-bottom: size(20);
+		padding-top: size(35.4);
+		user-select: none;
+		width: size(750);
 		&.minion {
 			--color: var(--minion);
 			background-image:  url('$lib/assets/bg/minion.png'), var(--bg);
@@ -137,31 +112,32 @@
 		}
 	}
 	.content {
-		padding: size(35.3);
+		padding: size(33) size(35);
 		display: flex;
-		gap: size(27.5);
+		gap: size(24);
 	}
 	.summary {
 		display: flex;
 		flex-direction: column;
-		gap: size(18);
+		gap: size(19);
 		align-items: center;
 	}
 	.stats {
 		display: grid;
-		gap: size(9.2);
+		gap: size(9);
 	}
 	.charateristics {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: size(5.5);
+		gap: size(11) size(5);
+		padding-top: size(2);
 	}
 	.specs {
-		font-size: size(22.9);
-		font-family: 'ITC Symbol Book';
+		color: #000;
+		font: size(23) / size(26) 'ITC Symbol Book';
 		display: flex;
 		flex-direction: column;
-		gap: size(28.6);
+		gap: size(28);
 	}
 	.skill,
 	.talent {
@@ -169,7 +145,11 @@
 			content: ', ';
 		}
 	}
-	.dice {
-		font-family: 'EotE Dice';
+	.weapon:has(+ .weapon) {
+		margin-bottom: size(3);
+	}
+	.weapon-name {
+		font-style: italic;
+		font-weight: bold;
 	}
 </style>

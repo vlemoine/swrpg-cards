@@ -15,8 +15,8 @@
 	}
 	.title {
 		color: var(--color);
+    font: bold size(25) / 1 'Teuton Fett';
+		padding-bottom: size(3);
 		text-transform: uppercase;
-		font-size: size(25);
-    font-family: 'Teuton Fett', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	}
 </style>

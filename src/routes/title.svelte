@@ -13,20 +13,19 @@
 		@return calc(#{$calc} * var(--scale, 1rem));
 	}
 	.title {
-		height: size(78);
-		width: size(629);
-		display: grid;
-		place-items: center;
-		color: #fff;
-		text-transform: uppercase;
-		font-size: size(33.3);
-		font-weight: bold;
-		line-height: 0;
 		background-color: var(--color);
-		border-top-right-radius: size(18);
 		border-bottom-right-radius: size(18);
+		border-top-right-radius: size(18);
+		box-sizing: border-box;
+		color: #fff;
 		corner-shape: bevel;
+		display: grid;
+		font: bold size(33.3)/1 'Elektra Medium Pro';
+		height: size(78);
+		padding-top: .5ex;
+		place-items: center;
 		text-box-trim: trim-both;
-		font-family: 'Elektra Medium Pro';
+		text-transform: uppercase;
+		width: size(629);
 	}
 </style>
