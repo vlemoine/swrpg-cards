@@ -35,7 +35,7 @@
 	}
 	.dice {
 		display: inline-block;
-		margin-right: size(-2);
+		margin-right: size(0);
 		&::before {
 			content: '(';
 			margin-left: size(-2);
@@ -55,7 +55,7 @@
 		paint-order: stroke;
 		vertical-align: middle;
 		&.g, &.p {
-			margin-right: -.5ch;
+			margin-right: -.25ch;
 			&:has(+ .y) {
 				margin-right: -.4ch;
 			}

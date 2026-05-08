@@ -28,26 +28,28 @@
 				{#each data.stats as value, i (i)}
 					<Stat name={statLabels[i]} {value} />
 				{/each}
+				<Stat name={statLabels[2]} value={data.defense} />
 			</div>
 		</div>
 		<div class="specs">
 			<div class="skills">
 				<SpecTitle name="Skills" isGroup={data.isGroup} />
 				{#each data.skills as skill, i (i)}
-					<span class="skill"
-						>{skill.name} <Dice dice={skill.dice} /></span
-					>
+					<span class="skill">{skill.name} <Dice dice={skill.dice} /></span>
 				{/each}
 			</div>
 			<div class="weapons">
 				<SpecTitle name="Weapons" />
 				{#each data.weapons as weapon, i (i)}
 					<div class="weapon">
-						<span class="weapon-name">{weapon.name}</span> ({weapon.type}; Damage {weapon.dmg};
-						Critical {weapon.crit}; Range ({weapon.range});
+						<span class="weapon-name"
+							>{weapon.name}
+							{#if weapon.count}{`(${weapon.count})`}{/if}</span
+						>
+						({weapon.type}; Damage {weapon.dmg}; Critical {weapon.crit}; Range ({weapon.range});
 						{#if weapon.qualities.length}
 							{#each weapon.qualities as quality, i (i)}
-								{quality.name}{#if quality.value}{quality.value}{/if}
+								{#if i > 0}{', '}{/if}{quality.name}{#if quality.value}{` ${quality.value}`}{/if}
 							{/each}
 						{:else}-
 						{/if})
@@ -101,11 +103,11 @@
 		width: size(750);
 		&.minion {
 			--color: var(--minion);
-			background-image:  url('$lib/assets/bg/minion.png'), var(--bg);
+			background-image: url('$lib/assets/bg/minion.png'), var(--bg);
 		}
 		&.rival {
 			--color: var(--rival);
-			background-image:  url('$lib/assets/bg/rival.png'), var(--bg);
+			background-image: url('$lib/assets/bg/rival.png'), var(--bg);
 		}
 		&.nemesis {
 			--color: var(--nemesis);
