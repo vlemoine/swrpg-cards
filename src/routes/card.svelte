@@ -86,7 +86,8 @@
 		@return calc(#{$calc} * var(--scale, 1rem));
 	}
 	.card {
-		--scale: 8px;
+		// --size: .352vw;
+		--scale: var(--size, 8px);
 		--bg: url('$lib/assets/bg/card.jpg');
 		--minion: #8e5a07;
 		--nemesis: #741213;
@@ -95,7 +96,6 @@
 		background-color: red;
 		background-size: cover;
 		box-sizing: border-box;
-		margin-bottom: size(20);
 		padding-top: size(35.4);
 		user-select: none;
 		width: size(750);
