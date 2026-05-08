@@ -6,11 +6,21 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<style>
+		body {
+			margin: 0;
+			overflow-x: hidden;
+		}
+	</style>
 </svelte:head>
 
 {@render children()}
 
 <style>
+	@page {
+		size: letter;
+		margin: 0.25in;
+	}
 	@font-face {
 		font-family: 'EotE Dice';
 		src: url('/fonts/sw-rpg-icons.woff');

@@ -50,6 +50,7 @@
 		corner-shape: bevel;
 		display: grid;
 		flex: 0 0 size(26);
+		max-height: size(26);
 		padding-top: size(2);
 		place-items: center;
 		text-align: center;
