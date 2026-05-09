@@ -7,7 +7,7 @@ interface Weapon {
 	crit: number;
 	count: number;
 	range: Range;
-	qualities: { name: string; value?: number }[];
+	qualities: string[];
 }
 interface Skill {
 	name: string;
@@ -29,7 +29,7 @@ export interface NPC {
 	weapons: Weapon[];
 	talents: { name: string; value?: any }[];
 	tier: number;
-	abilities: string[];
+	abilities: { name: string; text: string }[];
 	gear: string[];
 }
 export const BlankNPC: NPC = {

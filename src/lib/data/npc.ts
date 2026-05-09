@@ -1,6 +1,6 @@
 import type { NPC } from './types';
 
-const NPCS = [
+const NPCS: NPC[] = [
 	{
 		name: 'Bark Rat',
 		desc: '',
@@ -31,12 +31,7 @@ const NPCS = [
 				crit: 4,
 				count: 0,
 				range: 'Engaged',
-				qualities: [
-					{
-						name: 'Knockdown',
-						value: 0
-					}
-				]
+				qualities: ['Knockdown']
 			},
 			{
 				name: 'Teeth and claws',
@@ -49,7 +44,11 @@ const NPCS = [
 			}
 		],
 		talents: [],
-		abilities: ['Color-shifting Hide', 'Toughened Hide', 'Prehensile Tail'],
+		abilities: [
+			{ name: 'Color-shifting Hide', text: '' },
+			{ name: 'Toughened Hide', text: '' },
+			{ name: 'Prehensile Tail', text: '' }
+		],
 		gear: [],
 		tier: 0
 	},
@@ -107,20 +106,7 @@ const NPCS = [
 				count: 0,
 				crit: 3,
 				range: 'Medium',
-				qualities: [
-					{
-						name: 'Auto Fire',
-						value: 0
-					},
-					{
-						name: 'Pierce',
-						value: 1
-					},
-					{
-						name: 'Stun Setting',
-						value: 0
-					}
-				]
+				qualities: ['Auto Fire', 'Pierce 1', 'Stun Setting']
 			},
 			{
 				name: 'Frag Grenade',
@@ -129,16 +115,7 @@ const NPCS = [
 				crit: 4,
 				count: 2,
 				range: 'Short',
-				qualities: [
-					{
-						name: 'Blast',
-						value: '6'
-					},
-					{
-						name: 'Limited Ammo',
-						value: 1
-					}
-				]
+				qualities: ['Blast 6', 'Limited Ammo 1']
 			},
 			{
 				name: 'Anti-Personnel Mine',
@@ -147,26 +124,16 @@ const NPCS = [
 				crit: 3,
 				count: 1,
 				range: 'Engaged',
-				qualities: [
-					{
-						name: 'Blast',
-						value: '4'
-					},
-					{
-						name: 'Vicious',
-						value: '4'
-					},
-					{
-						name: 'Limited Ammo',
-						value: 1
-					}
-				]
+				qualities: ['Blast 4', 'Vicious 4', 'Limited Ammo 1']
 			}
 		],
 		talents: [],
 		tier: 1,
 		abilities: [
-			'Clone Inhibitor Chip - So long as proper chain of command is observed, upgrade the ability of Leadership checks targeting a clone trooper once.'
+			{
+				name: 'Clone Inhibitor Chip',
+				text: 'So long as proper chain of command is observed, upgrade the ability of Leadership checks targeting a clone trooper once.'
+			}
 		],
 		gear: ['Clone Armor (+2 soak)']
 	}

@@ -49,7 +49,7 @@
 						({weapon.type}; Damage {weapon.dmg}; Critical {weapon.crit}; Range ({weapon.range});
 						{#if weapon.qualities.length}
 							{#each weapon.qualities as quality, i (i)}
-								{#if i > 0}{', '}{/if}{quality.name}{#if quality.value}{` ${quality.value}`}{/if}
+								{#if i > 0}{', '}{/if}{quality}
 							{/each}
 						{:else}-
 						{/if})
@@ -68,7 +68,11 @@
 			</div>
 			<div class="abilities">
 				<SpecTitle name="Abilities" />
-				{#if data.abilities.length === 0}-{:else}{data.abilities.join(', ')}{/if}
+				{#if data.abilities.length === 0}-{:else}
+					{#each data.abilities as abi, i (i)}
+						{#if i > 0}{', '}{/if}<b>{abi.name}</b><span>{` - ${abi.text}`}</span>
+					{/each}
+				{/if}
 			</div>
 			<div class="gear">
 				<SpecTitle name="Gear" />
