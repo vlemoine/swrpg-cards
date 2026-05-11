@@ -132,7 +132,7 @@
 			.section-footer {
 				align-items: center;
 				display: flex;
-				justify-content: center;
+				justify-content: center6;
 				width: 100%;
 			}
 			&.skills {

@@ -70,17 +70,16 @@
 				<SpecTitle name="Abilities" />
 				{#if data.abilities.length === 0}-{:else}
 					{#each data.abilities as abi, i (i)}
-						{#if i > 0}{', '}{/if}<b>{abi.name}</b><span>{` - ${abi.text}`}</span>
+						{#if i > 0}<br />{/if}<b>{abi.name}</b><span>{` - ${abi.text}`}</span>
 					{/each}
 				{/if}
 			</div>
 			<div class="gear">
 				<SpecTitle name="Gear" />
 				{#if data.gear.length === 0}-{/if}
-				{#each data.gear as gear, i (i)}
-					<span class="gear">{gear}</span>
-				{/each}
+				<span class="gear">{data.gear}</span>
 			</div>
+			<div class="desc">{data.desc}</div>
 		</div>
 	</div>
 </div>
@@ -105,7 +104,8 @@
 		padding-top: size(35.4);
 		user-select: none;
 		width: size(750);
-		&.minion {
+		&.minion,
+		&.operator {
 			--color: var(--minion);
 			background-image: url('$lib/assets/bg/minion.png'), var(--bg);
 		}

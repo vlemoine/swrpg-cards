@@ -14,9 +14,9 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		width: 100%;
+		width: 500px;
 		display: flex;
-		margin-top: 1rem;
+		margin: 1rem auto;
 		justify-content: center;
 		flex-direction: column;
 		z-index: 1000;

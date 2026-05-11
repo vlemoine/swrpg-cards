@@ -30,14 +30,14 @@ export interface NPC {
 	talents: { name: string; value?: any }[];
 	tier: number;
 	abilities: { name: string; text: string }[];
-	gear: string[];
+	gear: string;
 }
 export const BlankNPC: NPC = {
 	abilities: [],
 	characteristics: [0, 0, 0, 0, 0, 0],
 	defense: [0, 0],
 	desc: '',
-	gear: [],
+	gear: '',
 	isGroup: false,
 	name: '',
 	skills: [],

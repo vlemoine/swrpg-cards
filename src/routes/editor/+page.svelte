@@ -14,7 +14,7 @@
 
 	const copyToClipboard = () => {
 		let targetStr = JSON.stringify(npcs, null, 2);
-		navigator.clipboard.writeText(targetStr);
+		navigator.clipboard.writeText('const NPCS: NPC[] = ' + targetStr);
 		displayToast('Successfully copied to clipboard!');
 	};
 
