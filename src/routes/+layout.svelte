@@ -21,6 +21,20 @@
 		size: letter;
 		margin: 0.25in;
 	}
+	:root {
+		font-family:
+			system-ui,
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			Roboto,
+			Oxygen,
+			Ubuntu,
+			Cantarell,
+			'Open Sans',
+			'Helvetica Neue',
+			sans-serif;
+	}
 	@font-face {
 		font-family: 'EotE Dice';
 		src: url('/fonts/sw-rpg-icons.woff');
