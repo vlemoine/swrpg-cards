@@ -3,30 +3,38 @@
 		short?: boolean;
 		title: string;
 		type?: string;
-		value: any;
+		value: unknown;
 	}
+
 	let { short, title, type = 'text', value = $bindable('') }: Props = $props();
+	let id = $state('');
+	const classes = ['text-field'];
+	$effect(() => {
+		id = `${title}-input`;
+		if (type) classes.push(type)
+		if (short) classes.push('short')
+	});
 </script>
 
-<div class={'text-field' + (type ? ' ' + type : '') + (short ? ' short' : '')}>
-	<label for={`${title}-input`}>{title}</label>
-	<input bind:value {type} id={`${title}-input`} />
+<div class={classes.join(' ')}>
+	<label for={id}>{title}</label>
+	<input bind:value {type} {id} />
 </div>
 
-<style lang="scss">
+<style>
 	.text-field {
 		display: flex;
 		flex-flow: column nowrap;
-		font-size: 16px;
-		margin: 5px 0px;
+		font-size: 1rem;
+		margin: 0.5rem 0;
 
 		label {
 			display: block;
 		}
 		input {
 			display: block;
-			font-size: 14px;
-			padding: 5px 10px;
+			font-size: 1rem;
+			padding: 0.5rem 0.75rem;
 			width: 50%;
 		}
 		&.short {
@@ -34,7 +42,7 @@
 			display: inline-block;
 
 			input {
-				padding: 5px 5px;
+				padding: 0.25rem;
 			}
 		}
 	}

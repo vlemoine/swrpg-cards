@@ -2,7 +2,7 @@
 	import type { NPC } from '$lib/data/types';
 	interface Props {
 		data: NPC;
-		onEdit: () => {};
+		onEdit: () => object;
 	}
 	let { data, onEdit }: Props = $props();
 </script>

@@ -1,5 +1,4 @@
-<script lang="ts">
-	import type { NPC } from '$lib/data/types';
+<script lang="ts"> 
 	interface Props {
 		jsonStr: string;
 	}
