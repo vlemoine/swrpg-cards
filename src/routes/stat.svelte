@@ -44,7 +44,7 @@
 		font-family: 'Teuton Fett';
 	}
 	.name {
-		background-color: #0d2548;
+		background-color: var(--navy);
 		border-radius: size(32);
 		box-sizing: border-box;
 		corner-shape: bevel;

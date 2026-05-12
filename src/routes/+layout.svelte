@@ -35,6 +35,10 @@
 			'Open Sans',
 			'Helvetica Neue',
 			sans-serif;
+		--brown: #8e5a07;
+		--red: #741213;
+		--gray: #546449;
+		--navy: #0d2548;
 	}
 	@font-face {
 		font-family: 'EotE Dice';

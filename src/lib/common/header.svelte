@@ -10,7 +10,7 @@
 <style lang="scss">
 	header {
 		align-items: center;
-		background-color: #8e5a07;
+		background-color: var(--red);
 		box-shadow: 0 0.25rem 0.5rem #0003;
 		display: flex;
 		padding: 1rem;
@@ -27,4 +27,4 @@
 		margin: 0;
 		margin-right: auto;
 	}
-</style> 
+</style>

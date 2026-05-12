@@ -4,23 +4,26 @@
 	import type { NPC } from '$lib/data/types';
 	import { resolve } from '$app/paths';
 	import Card from './card.svelte';
+	import LinkBtn from '$lib/common/link-btn.svelte';
 	const npcs: NPC[] = npc;
-</script> 
+</script>
 
 <Header>
 	<div class="view">
-		<label for="list"
+		<label for="list" title="List view"
 			><input type="radio" name="view" id="list" checked />
 			<i class="fa-sharp fa-solid fa-cards-blank checked"></i>
 			<i class="fa-sharp fa-regular fa-cards-blank unchecked"></i>
 		</label>
-		<label for="grid"
+		<label for="grid" title="Grid view"
 			><input type="radio" name="view" id="grid" />
 			<i class="fa-sharp fa-solid fa-grid-2 checked"></i>
 			<i class="fa-sharp fa-regular fa-grid-2 unchecked"></i>
 		</label>
 	</div>
-	<a href={resolve('/editor')} title="Edit cards"><i class="fa-sharp fa-solid fa-pen"></i></a>
+	<LinkBtn href={resolve('/editor')} title="Edit cards">
+		<i class="fa-sharp fa-solid fa-pen"></i>
+	</LinkBtn>
 </Header>
 <div class="page-preview">
 	{#each npcs as data, i (i)}
@@ -37,8 +40,34 @@
 		}
 	}
 	.view {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		position: relative;
 		input {
-			display: none;
+			appearance: none;
+			margin: 0;
+		}
+		label {
+			background-color: var(--brown);
+			padding: 0.5rem;
+			corner-shape: bevel;
+			border: 1px solid #fff;
+			background-color: #fff;
+			&:first-child {
+				border-radius: 0.5rem 0 0 0.5rem;
+				border-right-width: 0;
+			}
+			&:last-child {
+				border-radius: 0 0.5rem 0.5rem 0;
+			}
+			&:has(:checked) {
+				background-color: var(--gray);
+				color: #fff;
+			}
+			&:has(input:focus) {
+				box-shadow: 0 0 0.0625rem 0.125rem gold;
+				z-index: 2;
+			}
 		}
 		label:has(:checked) .unchecked {
 			display: none;
@@ -53,6 +82,7 @@
 		box-sizing: border-box;
 		display: grid;
 		grid-template-columns: repeat(var(--cols, 1), 1fr);
+		gap: 1px;
 		margin: 0 auto;
 		padding: 1rem;
 		width: 100%;
@@ -62,6 +92,7 @@
 			--bw: 1px;
 			padding: 0;
 			width: 7.5in;
+			gap: 0;
 		}
 	}
 </style>
