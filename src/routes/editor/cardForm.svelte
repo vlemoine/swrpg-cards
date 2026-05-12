@@ -1,27 +1,33 @@
 <script lang="ts">
-	import { BlankWeapon } from '$lib/data/types';
 	import FormInput from '$lib/common/formInput.svelte';
 	import { attributes, npcTypes, ranges, skills, weaponTypes } from '$lib/data/objects';
 	import Dice from '../dice.svelte';
 	import FormSelect from '$lib/common/formSelect.svelte';
+	import { Weapon, type Skill } from '$lib/data/types';
+	
 	let { editData = {}, onSave = () => {} } = $props();
+	// svelte-ignore state_referenced_locally
 	let EditData = $state(editData);
 	$effect.pre(() => {
 		EditData = editData;
 	});
+
 	let selectedSkill = $state('');
+
 	let skillList = skills.map((skill) => {
 		return { value: skill, label: skill };
 	});
+
 	let weaponTypeList = weaponTypes.map((wType) => {
 		return { value: wType, label: wType };
 	});
+
 	let rangeList = ranges.map((range) => {
 		return { value: range, label: range };
 	});
 
 	const skillAddHandler = () => {
-		if (EditData.skills.find((sk) => sk.name === selectedSkill) || selectedSkill.length === 0) {
+		if (EditData.skills.find((skill: Skill) => skill.name === selectedSkill) || selectedSkill.length === 0) {
 			return;
 		} else {
 			EditData.skills.push({ name: selectedSkill, dice: '' });
@@ -42,7 +48,7 @@
 		</div>
 		<div class="form-section">
 			<div class="section-header"><h2>Attributes</h2></div>
-			{#each EditData.characteristics as attr, i}
+			{#each EditData.characteristics as _, i (i)}
 				<FormInput
 					title={attributes[i]}
 					bind:value={EditData.characteristics[i]}
@@ -52,7 +58,7 @@
 		</div>
 		<div class="form-section skills">
 			<div class="section-header"><h2>Skills</h2></div>
-			{#each EditData.skills as skill}
+			{#each EditData.skills as skill, i (i)}
 				<div class="skill-wrap">
 					<FormInput short title={skill.name} bind:value={skill.dice} />
 					<Dice dice={skill.dice} />
@@ -73,15 +79,15 @@
 		<div class="form-section">
 			<div class="section-header"><h2>Talents</h2></div>
 			<button onclick={() => EditData.talents.push({ name: '', value: '' })}>Add Talent</button>
-			{#each EditData.talents as talent, i}
+			{#each EditData.talents as talent, i (i)}
 				<FormInput title="Name" bind:value={talent.name} />
 				<FormInput title="Value" bind:value={talent.value} short />{/each}
 		</div>
 
 		<div class="form-section equip">
 			<div class="section-header"><h2>Equipment</h2></div>
-			<button onclick={() => EditData.weapons.push(BlankWeapon)}>Add Weapoon</button>
-			{#each EditData.weapons as weapon}
+			<button onclick={() => EditData.weapons.push(new Weapon())}>Add Weapoon</button>
+			{#each EditData.weapons as weapon, i (i)}
 				<FormInput title="Name" bind:value={weapon.name} />
 				<FormSelect title="Skill" bind:value={weapon.type} options={weaponTypeList} />
 				<FormSelect title="Range" bind:value={weapon.range} options={rangeList} />
@@ -89,7 +95,7 @@
 				<FormInput title="Crit" bind:value={weapon.crit} short type="number" />
 				<FormInput short title="Limited Ammo Count" bind:value={weapon.count} type="number" />
 				<h4>Weapon Qualities</h4>
-				{#each weapon.qualities as qual, i}
+				{#each weapon.qualities as _quality, i (_quality)}
 					<FormInput title="Quality Name and Rating" bind:value={weapon.qualities[i]} />
 				{/each}
 				<button onclick={() => weapon.qualities.push('')}>Add Quality</button>
@@ -99,7 +105,7 @@
 		<div class="form-section">
 			<div class="section-header"><h2>Abilities</h2></div>
 			<button onclick={() => EditData.abilities.push({ name: '', text: '' })}>Add Ability</button>
-			{#each EditData.abilities as ability, i}
+			{#each EditData.abilities as _ability, i (_ability)}
 				<FormInput
 					title={`Ability ${i + 1} Name`}
 					bind:value={EditData.abilities[i].name}

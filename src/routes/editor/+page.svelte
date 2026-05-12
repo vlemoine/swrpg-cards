@@ -1,16 +1,15 @@
 <script lang="ts">
 	import npc from '$lib/data/npc';
 
-	import { BlankNPC } from '$lib/data/types';
-	import type { NPC } from '$lib/data/types';
+	import { NPC } from '$lib/data/types';
 	import CardForm from './cardForm.svelte';
 	import Tile from './tile.svelte';
-	import Toast from './toast.svelte';
+	import Toast from '../../lib/common/toast.svelte';
 	const npcs: NPC[] = npc;
 	let view = $state('default');
 	let toast = $state('');
-	let npcObject = $state(BlankNPC);
-	let selectedIndex = $state(null);
+	let npcObject = $state(new NPC());
+	let selectedIndex: number | null = $state(null);
 
 	const copyToClipboard = () => {
 		let targetStr = JSON.stringify(npcs, null, 2);
@@ -18,19 +17,19 @@
 		displayToast('Successfully copied to clipboard!');
 	};
 
-	const displayToast = (txt) => {
-		toast = txt;
+	const displayToast = (message: string) => {
+		toast = message;
 		setTimeout(() => (toast = ''), 5000);
 	};
 
-	const editHandler = (index) => {
+	const editHandler = (index: number) => {
 		selectedIndex = index;
 		npcObject = { ...npcs[index] };
 		console.log('NPCOBJECT:', npcObject);
 		view = 'edit';
 	};
 
-	const saveHandler = (obj) => {
+	const saveHandler = (obj: NPC) => {
 		if (selectedIndex) {
 			npcs[selectedIndex] = obj;
 		} else {
@@ -47,7 +46,7 @@
 		{#if view === 'default'}
 			<button
 				onclick={() => {
-					npcObject = BlankNPC;
+					npcObject = new NPC();
 					selectedIndex = null;
 					view = 'edit';
 				}}>Add NPC</button
@@ -58,8 +57,8 @@
 	</div>
 	{#if view === 'default'}
 		<div class="tile-wrap">
-			{#each npcs as data, i}
-				<Tile {data} onEdit={() => editHandler(i)} />
+			{#each npcs as data, i (i)}
+				<Tile {data} onEdit={async () => editHandler(i)} />
 			{/each}
 		</div>
 	{:else if view === 'edit'}
