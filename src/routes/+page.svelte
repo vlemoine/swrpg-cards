@@ -1,23 +1,27 @@
 <script lang="ts">
-	import Card from './card.svelte';
+	import Header from '$lib/common/header.svelte';
 	import npc from '$lib/data/npc';
 	import type { NPC } from '$lib/data/types';
+	import { resolve } from '$app/paths';
+	import Card from './card.svelte';
 	const npcs: NPC[] = npc;
-</script>
+</script> 
 
-<header>
-	<h1>SWRPG NPC Cards</h1>
+<Header>
 	<div class="view">
 		<label for="list"
 			><input type="radio" name="view" id="list" checked />
-			List
+			<i class="fa-sharp fa-solid fa-cards-blank checked"></i>
+			<i class="fa-sharp fa-regular fa-cards-blank unchecked"></i>
 		</label>
 		<label for="grid"
 			><input type="radio" name="view" id="grid" />
-			Grid
+			<i class="fa-sharp fa-solid fa-grid-2 checked"></i>
+			<i class="fa-sharp fa-regular fa-grid-2 unchecked"></i>
 		</label>
 	</div>
-</header>
+	<a href={resolve('/editor')} title="Edit cards"><i class="fa-sharp fa-solid fa-pen"></i></a>
+</Header>
 <div class="page-preview">
 	{#each npcs as data, i (i)}
 		<Card {data} />
@@ -26,30 +30,22 @@
 
 <style lang="scss">
 	:root {
-		--size: calc((1cqw + (.1cqw/3*2)) / var(--cols, 1));
+		--size: calc((1cqw + (0.1cqw/3 * 2)) / var(--cols, 1));
 		&:has(#grid:checked) {
 			// --size: 0.346vw;
 			--cols: 3;
 		}
 	}
-	header {
-		align-items: center;
-		background-color: #8e5a07;
-		box-shadow: 0 0.25rem 0.5rem #0003;
-		display: flex;
-		padding: 1rem;
-		position: sticky;
-		top: 0;
-		z-index: 999;
-		@media print {
+	.view {
+		input {
 			display: none;
 		}
-	}
-	h1 {
-		color: #fff;
-		font: bold 2rem / 1 'Elektra Medium Pro';
-		margin: 0;
-		margin-right: auto;
+		label:has(:checked) .unchecked {
+			display: none;
+		}
+		label:not(:has(:checked)) .checked {
+			display: none;
+		}
 	}
 	.page-preview {
 		container-type: inline-size;
