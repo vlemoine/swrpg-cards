@@ -1,5 +1,5 @@
 <script lang="ts">
-	type Die = 'g' | 'p' | 'y' | 'r' | 'b' | 'k' | 'w';
+	type Die = 'g' | 'p' | 'y' | 'r' | 'b' | 'k' | 'w' | 'a';
 	let { dice } = $props();
 	let _dice: Array<Die> = $derived([...dice]);
 	const map = {
@@ -9,7 +9,8 @@
 		r: { color: 'red', char: '' },
 		b: { color: 'skyblue', char: '' },
 		k: { color: 'black', char: '' },
-		w: { color: 'white', char: '' }
+		w: { color: 'white', char: '' },
+		a: { color: 'black', char: '' }
 	};
 	function char(die: Die) {
 		return map[die].char;
@@ -35,7 +36,7 @@
 	}
 	.dice {
 		display: inline-block;
-		margin-right: size(-2);
+		margin-right: size(0);
 		&::before {
 			content: '(';
 			margin-left: size(-2);
@@ -54,19 +55,21 @@
 		font-size: size(28);
 		paint-order: stroke;
 		vertical-align: middle;
-		&.g, &.p {
-			margin-right: -.5ch;
+		&.g,
+		&.p {
+			margin-right: -0.25ch;
 			&:has(+ .y) {
-				margin-right: -.4ch;
+				margin-right: -0.4ch;
 			}
 		}
-		&.r, &.y {
-			margin-right: -.1ch;
+		&.r,
+		&.y {
+			margin-right: -0.1ch;
 			&:first-child {
-				margin-left: .2ch;
+				margin-left: 0.2ch;
 			}
 			&:last-child {
-				margin-right: -.25ch;
+				margin-right: -0.25ch;
 			}
 		}
 	}

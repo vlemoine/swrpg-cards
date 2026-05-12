@@ -1,25 +1,42 @@
+// type Attributes = 'Brawn' | 'Agility' | 'Intellect' | 'Cunning' | 'Willpower' | 'Presence';
+
 type Range = 'Engaged' | 'Short' | 'Medium' | 'Long' | 'Extreme';
-interface Weapon {
-  name: string;
-  type: string;
-  dmg: number;
-  crit: number;
-  range: Range;
-  qualities: { name: string; value?: number }[];
+
+type NPCType =  'minion' | 'rival' | 'nemesis' | 'operator';
+
+export interface Skill {
+	name: string;
+	dice: string;
 }
-interface Skill {
-  name: string;
-  dice: string;
+
+export interface optionObj {
+	label: string;
+	value: string;
 }
-export interface NPC {
-  name: string;
-  type: 'minion' | 'rival' | 'nemesis';
-  isGroup: boolean;
-  characteristics: number[];
-  stats: Array<number | number[]>;
-  skills: Skill[];
-  weapons: Weapon[];
-  talents: { name: string; value?: number }[];
-  abilities: string[];
-  gear: string[];
+
+
+export class Weapon {
+	name = '';
+	type = '';
+	dmg = 0;
+	crit = 0;
+	count = 0;
+	range: Range = 'Engaged';
+	qualities: string[] = [];
+}
+
+export class NPC {
+	defense: Array<number | number[]> = [0, 0];
+	desc = '';
+	name = '';
+	type: NPCType = 'operator';
+	isGroup = false;
+	characteristics = [0, 0, 0, 0, 0, 0];
+	stats: Array<number | number[]> = [0, 0]
+	skills: Skill[] = [];
+	weapons: Weapon[] = [];
+	talents: { name: string; value?: string }[] = [];
+	tier = 0;
+	abilities: { name: string; text: string }[] = [];
+	gear = '';
 }
