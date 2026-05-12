@@ -12,6 +12,7 @@
 			overflow-x: hidden;
 		}
 	</style>
+	<script src="https://kit.fontawesome.com/c55866f247.js" crossorigin="anonymous"></script>
 </svelte:head>
 
 {@render children()}
