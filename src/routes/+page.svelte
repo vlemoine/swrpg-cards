@@ -48,11 +48,11 @@
 			margin: 0;
 		}
 		label {
-			background-color: var(--brown);
-			padding: 0.5rem;
-			corner-shape: bevel;
-			border: 1px solid #fff;
 			background-color: #fff;
+			border: 1px solid #fff;
+			corner-shape: bevel;
+			display: grid;
+			padding: 0.5rem;
 			&:first-child {
 				border-radius: 0.5rem 0 0 0.5rem;
 				border-right-width: 0;

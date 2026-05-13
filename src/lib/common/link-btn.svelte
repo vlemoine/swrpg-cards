@@ -6,12 +6,16 @@
 
 <style>
 	.btn {
-		corner-shape: bevel;
-		border: 1px solid white;
-		padding: 0.5rem;
-		border-radius: 0.5rem;
-		margin-left: 0.5rem;
-		color: #fff;
 		background-color: var(--navy);
+		border-radius: 0.5rem;
+		border: 1px solid white;
+		color: #fff;
+		corner-shape: bevel;
+		margin-left: 0.5rem;
+		padding: 0.5rem;
+		&:focus {
+			box-shadow: 0 0 0.0625rem 0.125rem gold;
+			outline: none;
+		}
 	}
 </style>

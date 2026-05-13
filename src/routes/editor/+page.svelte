@@ -46,7 +46,7 @@
 
 <Header>
 	<LinkBtn href={resolve('/')} title="View cards">
-		<i class="fa-sharp fa-solid fa-pen"></i>
+		<i class="fa-sharp fa-solid fa-cards-blank"></i>
 	</LinkBtn>
 </Header>
 <div>
