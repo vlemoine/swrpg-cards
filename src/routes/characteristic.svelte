@@ -68,14 +68,21 @@
 		border-radius: size(5);
 		box-sizing: border-box;
 		flex: 0 0 size(22);
-		padding-top: size(1);
+		max-height: size(22);
 		text-align: center;
+		position: relative;
 		span {
 			-webkit-font-smoothing: antialiased;
+			bottom: 0;
 			color: #fff;
 			font: size(21) 'Teuton Mager';
-			line-height: 0;
+			left: 0;
+			line-height: 1;
+			margin: auto;
+			position: absolute;
+			right: 0;
 			text-transform: uppercase;
+			top: size(2);
 			vertical-align: middle;
 		}
 	}

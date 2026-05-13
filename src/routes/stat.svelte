@@ -44,12 +44,13 @@
 		font-family: 'Teuton Fett';
 	}
 	.name {
-		background-color: #0d2548;
+		background-color: var(--navy);
 		border-radius: size(32);
 		box-sizing: border-box;
 		corner-shape: bevel;
 		display: grid;
 		flex: 0 0 size(26);
+		max-height: size(26);
 		padding-top: size(2);
 		place-items: center;
 		text-align: center;
