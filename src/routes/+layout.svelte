@@ -12,6 +12,7 @@
 
 <style>
 	:root {
+		--navy: #0d2548;
 		font-family:
 			system-ui,
 			-apple-system,

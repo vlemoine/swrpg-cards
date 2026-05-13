@@ -1,10 +1,11 @@
 <script lang="ts">
+	import Button from '$lib/common/button.svelte';
 	import FormInput from '$lib/common/formInput.svelte';
 	import { attributes, npcTypes, ranges, skills, weaponTypes } from '$lib/data/objects';
 	import Dice from '../dice.svelte';
 	import FormSelect from '$lib/common/formSelect.svelte';
 	import { Weapon, type Skill } from '$lib/data/types';
-	
+
 	let { editData = {}, onSave = () => {} } = $props();
 	// svelte-ignore state_referenced_locally
 	let EditData = $state(editData);
@@ -27,7 +28,10 @@
 	});
 
 	const skillAddHandler = () => {
-		if (EditData.skills.find((skill: Skill) => skill.name === selectedSkill) || selectedSkill.length === 0) {
+		if (
+			EditData.skills.find((skill: Skill) => skill.name === selectedSkill) ||
+			selectedSkill.length === 0
+		) {
 			return;
 		} else {
 			EditData.skills.push({ name: selectedSkill, dice: '' });
@@ -35,40 +39,50 @@
 	};
 </script>
 
-<div class="editor-wrap">
-	<div class="form-head"><button onclick={() => onSave(EditData)}>Save</button></div>
+<div class="editor">
+	<aside class="form-sidebar">
+		<Button onclick={() => onSave(EditData)}>Save</Button>
+		<hr />
+		<a href="#details">Details</a>
+		<a href="#attributes">Attributes</a>
+		<a href="#skills">Skills</a>
+	</aside>
 
 	<form>
-		<div class="form-section">
-			<div class="section-header"><h2>Details</h2></div>
+		<section id="details">
+			<h2>Details</h2>
 			<FormInput title="Name" bind:value={EditData.name} />
 			<FormInput title="Description" bind:value={EditData.desc} />
 			<FormSelect title="Type" bind:value={EditData.type} options={npcTypes} />
 			<FormInput title="Tier" bind:value={EditData.tier} short type="number" />
-		</div>
-		<div class="form-section">
-			<div class="section-header"><h2>Attributes</h2></div>
-			{#each EditData.characteristics as _, i (i)}
-				<FormInput
-					title={attributes[i]}
-					bind:value={EditData.characteristics[i]}
-					short
-					type="number"
-				/>{/each}
-		</div>
-		<div class="form-section skills">
-			<div class="section-header"><h2>Skills</h2></div>
+		</section>
+		<section id="attributes">
+			<h2>Attributes</h2>
+			<div class="attributes">
+				{#each EditData.characteristics as _, i (i)}
+					<FormInput
+						title={attributes[i]}
+						bind:value={EditData.characteristics[i]}
+						short
+						type="number"
+					/>{/each}
+			</div>
+		</section>
+		<section id="skills">
+			<h2>Skills</h2>
+			<div class="skills">
 			{#each EditData.skills as skill, i (i)}
 				<div class="skill-wrap">
 					<FormInput short title={skill.name} bind:value={skill.dice} />
 					<Dice dice={skill.dice} />
 				</div>
 			{/each}
-			<div class="section-footer">
-				<button onclick={skillAddHandler}>Add Skill</button>
-				<FormSelect title="Skill to Add" bind:value={selectedSkill} options={skillList} />
 			</div>
-		</div>
+			<div class="section-footer">
+				<FormSelect title="Skill to Add" bind:value={selectedSkill} options={skillList} />
+				<Button onclick={skillAddHandler}>Add Skill</Button>
+			</div>
+		</section>
 		<div class="form-section">
 			<div class="section-header"><h2>Stats</h2></div>
 			<FormInput title="Wounds" bind:value={EditData.stats[0]} short type="number" />
@@ -118,57 +132,57 @@
 </div>
 
 <style lang="scss">
-	.editor-wrap {
-		width: 100%;
-		--scale: 5px;
-
-		.form-head {
+	aside {
+		position: sticky;
+		top: 1rem;
+		display: flex;
+		flex-direction: column;
+		hr {
 			width: 100%;
 		}
-		form {
-			width: 100%;
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: repeat(1fr);
-		}
-		.form-section {
-			.section-header {
-				width: 100%;
+	}
+	h2 {
+		margin: 0;
+	}
+	.section-footer {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+	.attributes {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.skills {
+			--scale: 5px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		.skill-wrap {
+			display: flex;
+			flex-wrap: nowrap;
+			.dice {
+				flex: 0 0 auto;
 			}
+		}
+	}
+	.editor {
+		display: grid;
+		grid-template-columns: 12rem 1fr;
+		gap: 1rem;
+		position: relative;
+
+		.form-section {
+
 			.section-footer {
 				align-items: center;
 				display: flex;
 				justify-content: center6;
 				width: 100%;
 			}
-			&.skills {
-				grid-row: 1 / 3;
-				grid-column: 2 / 2;
-				display: flex;
-				justify-content: space-around;
-				align-items: center;
-				flex-flow: row wrap;
-
-				.skill-wrap {
-					display: inline-block;
-					width: 25%;
-					height: 85px;
-				}
-			}
 			&.equip {
 				grid-row: 4 / 7;
 				grid-column: 2 / 2;
 			}
-		}
-		button {
-			background-color: #333333;
-			border: 0px solid black;
-			border-radius: 5px;
-			color: #fff;
-			font-size: 14px;
-			font-weight: bold;
-			margin: 10px;
-			padding: 10px 15px;
 		}
 	}
 </style>

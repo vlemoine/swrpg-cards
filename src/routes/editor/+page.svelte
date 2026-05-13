@@ -5,6 +5,7 @@
 	import CardForm from './cardForm.svelte';
 	import Tile from './tile.svelte';
 	import Toast from '../../lib/common/toast.svelte';
+	import Button from '$lib/common/button.svelte';
 	const npcs: NPC[] = npc;
 	let view = $state('default');
 	let toast = $state('');
@@ -44,16 +45,17 @@
 <div>
 	<div class="edit-btn-wrap">
 		{#if view === 'default'}
-			<button
+			<Button
 				onclick={() => {
 					npcObject = new NPC();
 					selectedIndex = null;
 					view = 'edit';
-				}}>Add NPC</button
+				}}>Add NPC</Button
 			>
-			<button onclick={copyToClipboard}>Export JSON</button>
+			<Button onclick={copyToClipboard}>Export JSON</Button>
 		{:else}
-			<button onclick={() => (view = 'default')}>Return to NPC List</button>{/if}
+			<Button onclick={() => (view = 'default')}>Return to NPC List</Button>
+		{/if}
 	</div>
 	{#if view === 'default'}
 		<div class="tile-wrap">
@@ -71,20 +73,13 @@
 
 <style lang="scss">
 	.edit-btn-wrap {
-		button {
-			background-color: #333333;
-			border: 0px solid black;
-			border-radius: 5px;
-			color: #fff;
-			font-size: 14px;
-			font-weight: bold;
-			margin: 10px;
-			padding: 10px 15px;
-		}
+		display: flex;
+		gap: 0.25rem;
+		padding: 0.5rem 0;
 	}
 	.tile-wrap {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		grid-gap: 10px;
+		gap: 1rem;
 	}
 </style>
