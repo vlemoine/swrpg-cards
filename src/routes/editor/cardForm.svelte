@@ -5,6 +5,7 @@
 	import Dice from '../dice.svelte';
 	import FormSelect from '$lib/common/formSelect.svelte';
 	import { Weapon, type Skill } from '$lib/data/types';
+	import Section from './section.svelte';
 
 	let { editData = {}, onSave = () => {} } = $props();
 	// svelte-ignore state_referenced_locally
@@ -37,6 +38,27 @@
 			EditData.skills.push({ name: selectedSkill, dice: '' });
 		}
 	};
+
+	const addTalent = () => {
+		EditData = {
+			...EditData,
+			talents: [...(EditData.talents || []), { name: '', value: '' }]
+		};
+	};
+
+	const addAbility = () => {
+		EditData = {
+			...EditData,
+			abilities: [...(EditData.abilities || []), { name: '', text: '' }]
+		};
+	};
+
+	const addWeapon = () => {
+		EditData = {
+			...EditData,
+			weapons: [...(EditData.weapons || []), new Weapon()]
+		};
+	};
 </script>
 
 <div class="editor">
@@ -46,18 +68,20 @@
 		<a href="#details">Details</a>
 		<a href="#attributes">Attributes</a>
 		<a href="#skills">Skills</a>
+		<a href="#stats">Stats</a>
+		<a href="#talents">Talents</a>
+		<a href="#equipment">Equipment</a>
+		<a href="#abilities">Abilities</a>
 	</aside>
 
 	<form>
-		<section id="details">
-			<h2>Details</h2>
+		<Section name="Details">
 			<FormInput title="Name" bind:value={EditData.name} />
 			<FormInput title="Description" bind:value={EditData.desc} />
 			<FormSelect title="Type" bind:value={EditData.type} options={npcTypes} />
 			<FormInput title="Tier" bind:value={EditData.tier} short type="number" />
-		</section>
-		<section id="attributes">
-			<h2>Attributes</h2>
+		</Section>
+		<Section name="Attributes">
 			<div class="attributes">
 				{#each EditData.characteristics as _, i (i)}
 					<FormInput
@@ -67,41 +91,45 @@
 						type="number"
 					/>{/each}
 			</div>
-		</section>
-		<section id="skills">
-			<h2>Skills</h2>
+		</Section>
+		<Section name="Skills">
 			<div class="skills">
-			{#each EditData.skills as skill, i (i)}
-				<div class="skill-wrap">
-					<FormInput short title={skill.name} bind:value={skill.dice} />
-					<Dice dice={skill.dice} />
-				</div>
-			{/each}
+				{#each EditData.skills as skill, i (i)}
+					<div class="skill-wrap">
+						<FormInput short title={skill.name} bind:value={skill.dice} />
+						<Dice dice={skill.dice} />
+					</div>
+				{/each}
 			</div>
 			<div class="section-footer">
 				<FormSelect title="Skill to Add" bind:value={selectedSkill} options={skillList} />
 				<Button onclick={skillAddHandler}>Add Skill</Button>
 			</div>
-		</section>
-		<div class="form-section">
-			<div class="section-header"><h2>Stats</h2></div>
-			<FormInput title="Wounds" bind:value={EditData.stats[0]} short type="number" />
-			<FormInput title="Soak" bind:value={EditData.stats[1]} short type="number" />
-			<FormInput title="Melee Defense" bind:value={EditData.defense[0]} short type="number" />
-			<FormInput title="Ranged Defense" bind:value={EditData.defense[1]} short type="number" />
-		</div>
-		<div class="form-section">
-			<div class="section-header"><h2>Talents</h2></div>
-			<button onclick={() => EditData.talents.push({ name: '', value: '' })}>Add Talent</button>
+		</Section>
+		<Section name="Stats">
+			<div class="stats">
+				<FormInput title="Wounds" bind:value={EditData.stats[0]} short type="number" />
+				<FormInput title="Soak" bind:value={EditData.stats[1]} short type="number" />
+				<FormInput title="Melee Defense" bind:value={EditData.defense[0]} short type="number" />
+				<FormInput title="Ranged Defense" bind:value={EditData.defense[1]} short type="number" />
+			</div>
+		</Section>
+		<Section name="Talents">
+			{#snippet actions()}
+				<Button onclick={addTalent}>Add Talent</Button>
+			{/snippet}
 			{#each EditData.talents as talent, i (i)}
 				<FormInput title="Name" bind:value={talent.name} />
-				<FormInput title="Value" bind:value={talent.value} short />{/each}
-		</div>
+				<FormInput title="Value" bind:value={talent.value} short />
+			{/each}
+		</Section>
+		<Section name="Equipment">
+			{#snippet actions()}
+				<Button onclick={addWeapon}>Add Weapon</Button>
+			{/snippet}
 
-		<div class="form-section equip">
-			<div class="section-header"><h2>Equipment</h2></div>
-			<button onclick={() => EditData.weapons.push(new Weapon())}>Add Weapoon</button>
 			{#each EditData.weapons as weapon, i (i)}
+			<div class="weapon">
 				<FormInput title="Name" bind:value={weapon.name} />
 				<FormSelect title="Skill" bind:value={weapon.type} options={weaponTypeList} />
 				<FormSelect title="Range" bind:value={weapon.range} options={rangeList} />
@@ -113,12 +141,16 @@
 					<FormInput title="Quality Name and Rating" bind:value={weapon.qualities[i]} />
 				{/each}
 				<button onclick={() => weapon.qualities.push('')}>Add Quality</button>
+				<hr>
+				</div>
 			{/each}
 			<FormInput title="Additional Gear" bind:value={EditData.gear} />
-		</div>
-		<div class="form-section">
-			<div class="section-header"><h2>Abilities</h2></div>
-			<button onclick={() => EditData.abilities.push({ name: '', text: '' })}>Add Ability</button>
+		</Section>
+		<Section name="Abilities">
+			{#snippet actions()}
+				<Button onclick={addAbility}>Add Ability</Button>
+			{/snippet}
+
 			{#each EditData.abilities as _ability, i (_ability)}
 				<FormInput
 					title={`Ability ${i + 1} Name`}
@@ -127,23 +159,26 @@
 					title={`Ability ${i + 1} Text`}
 					bind:value={EditData.abilities[i].text}
 				/>{/each}
-		</div>
+		</Section>
 	</form>
 </div>
 
 <style lang="scss">
 	aside {
 		position: sticky;
-		top: 1rem;
+		top: 5rem;
 		display: flex;
 		flex-direction: column;
 		hr {
 			width: 100%;
 		}
 	}
-	h2 {
-		margin: 0;
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
+
 	.section-footer {
 		display: flex;
 		align-items: center;
@@ -154,7 +189,7 @@
 		grid-template-columns: repeat(3, 1fr);
 	}
 	.skills {
-			--scale: 5px;
+		--scale: 5px;
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		.skill-wrap {
@@ -165,14 +200,18 @@
 			}
 		}
 	}
-	.editor {
+	.stats {
 		display: grid;
-		grid-template-columns: 12rem 1fr;
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.editor {
+		align-items: self-start;
+		display: grid;
 		gap: 1rem;
+		grid-template-columns: 12rem 1fr;
 		position: relative;
 
 		.form-section {
-
 			.section-footer {
 				align-items: center;
 				display: flex;

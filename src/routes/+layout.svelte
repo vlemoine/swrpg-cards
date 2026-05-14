@@ -10,6 +10,7 @@
 		body {
 			margin: 0;
 			overflow-x: hidden;
+			background: #f1ece7;
 		}
 	</style>
 	<script src="https://kit.fontawesome.com/c55866f247.js" crossorigin="anonymous"></script>

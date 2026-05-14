@@ -1,14 +1,14 @@
 <script lang="ts">
+import { resolve } from '$app/paths';
 	import npc from '$lib/data/npc';
-
 	import { NPC } from '$lib/data/types';
 	import CardForm from './cardForm.svelte';
 	import Tile from './tile.svelte';
 	import Toast from '../../lib/common/toast.svelte';
 	import Button from '$lib/common/button.svelte';
 	import Header from '$lib/common/header.svelte';
-	import { resolve } from '$app/paths';
 	import LinkBtn from '$lib/common/link-btn.svelte';
+
 	const npcs: NPC[] = npc;
 	let view = $state('default');
 	let toast = $state('');
@@ -46,11 +46,14 @@
 </script>
 
 <Header>
+	{#if view === 'edit'}
+		<Button onclick={() => (view = 'default')} hex>Return to NPC List</Button>
+	{/if}
 	<LinkBtn href={resolve('/')} title="View cards">
 		<i class="fa-sharp fa-solid fa-cards-blank"></i>
 	</LinkBtn>
 </Header>
-<div>
+<main>
 	<div class="edit-btn-wrap">
 		{#if view === 'default'}
 			<Button
@@ -61,8 +64,6 @@
 				}}>Add NPC</Button
 			>
 			<Button onclick={copyToClipboard}>Export JSON</Button>
-		{:else}
-			<Button onclick={() => (view = 'default')}>Return to NPC List</Button>
 		{/if}
 	</div>
 	{#if view === 'default'}
@@ -77,17 +78,22 @@
 	{#if toast.length > 0}
 		<Toast>{toast}</Toast>
 	{/if}
-</div>
+</main>
 
 <style lang="scss">
+	main {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1rem;
+	}
 	.edit-btn-wrap {
 		display: flex;
-		gap: 0.25rem;
-		padding: 0.5rem 0;
+		gap: 0.5rem;
 	}
 	.tile-wrap {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
 		gap: 1rem;
+		grid-template-columns: repeat(3, 1fr);
 	}
 </style>
