@@ -6,11 +6,22 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<style>
+		body {
+			margin: 0;
+			overflow-x: hidden;
+		}
+	</style>
+	<script src="https://kit.fontawesome.com/c55866f247.js" crossorigin="anonymous"></script>
 </svelte:head>
 
 {@render children()}
 
 <style>
+	@page {
+		size: letter;
+		margin: 0.25in;
+	}
 	:root {
 		--navy: #0d2548;
 		font-family:
@@ -25,6 +36,10 @@
 			'Open Sans',
 			'Helvetica Neue',
 			sans-serif;
+		--brown: #8e5a07;
+		--red: #741213;
+		--gray: #546449;
+		--navy: #0d2548;
 	}
 	@font-face {
 		font-family: 'EotE Dice';

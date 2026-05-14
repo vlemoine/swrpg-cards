@@ -3,13 +3,13 @@
 	let { dice } = $props();
 	let _dice: Array<Die> = $derived([...dice]);
 	const map = {
-		g: { color: '#3da547', char: '' },
-		p: { color: 'purple', char: '' },
-		y: { color: 'yellow', char: '' },
-		r: { color: 'red', char: '' },
-		b: { color: 'skyblue', char: '' },
-		k: { color: 'black', char: '' },
-		w: { color: 'white', char: '' },
+		g: { color: '#3da547', char: '\uE93F' },
+		p: { color: 'purple', char: '\uE93F' },
+		y: { color: 'yellow', char: '\uE941' },
+		r: { color: 'red', char: '\uE941' },
+		b: { color: 'skyblue', char: '\uE93D' },
+		k: { color: 'black', char: '\uE93D' },
+		w: { color: 'white', char: '\uE941' },
 		a: { color: 'black', char: '' }
 	};
 	function char(die: Die) {

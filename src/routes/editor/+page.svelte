@@ -6,6 +6,9 @@
 	import Tile from './tile.svelte';
 	import Toast from '../../lib/common/toast.svelte';
 	import Button from '$lib/common/button.svelte';
+	import Header from '$lib/common/header.svelte';
+	import { resolve } from '$app/paths';
+	import LinkBtn from '$lib/common/link-btn.svelte';
 	const npcs: NPC[] = npc;
 	let view = $state('default');
 	let toast = $state('');
@@ -42,6 +45,11 @@
 	};
 </script>
 
+<Header>
+	<LinkBtn href={resolve('/')} title="View cards">
+		<i class="fa-sharp fa-solid fa-cards-blank"></i>
+	</LinkBtn>
+</Header>
 <div>
 	<div class="edit-btn-wrap">
 		{#if view === 'default'}
