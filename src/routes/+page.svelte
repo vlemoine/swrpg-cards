@@ -11,12 +11,12 @@
 <Header>
 	<div class="view">
 		<label for="list" title="List view"
-			><input type="radio" name="view" id="list" checked />
+			><input type="radio" name="view" id="list" />
 			<i class="fa-sharp fa-solid fa-cards-blank checked"></i>
 			<i class="fa-sharp fa-regular fa-cards-blank unchecked"></i>
 		</label>
 		<label for="grid" title="Grid view"
-			><input type="radio" name="view" id="grid" />
+			><input type="radio" name="view" id="grid" checked />
 			<i class="fa-sharp fa-solid fa-grid-2 checked"></i>
 			<i class="fa-sharp fa-regular fa-grid-2 unchecked"></i>
 		</label>
@@ -65,13 +65,11 @@
 				color: #fff;
 			}
 			&:has(input:focus) {
-				box-shadow: 0 0 0.0625rem 0.125rem gold;
+				box-shadow: var(--outline);
 				z-index: 2;
 			}
 		}
-		label:has(:checked) .unchecked {
-			display: none;
-		}
+		label:has(:checked) .unchecked,
 		label:not(:has(:checked)) .checked {
 			display: none;
 		}

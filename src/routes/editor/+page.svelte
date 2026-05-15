@@ -1,8 +1,8 @@
 <script lang="ts">
-import { resolve } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import npc from '$lib/data/npc';
 	import { NPC } from '$lib/data/types';
-	import CardForm from './cardForm.svelte';
+	import CardForm from './card-form.svelte';
 	import Tile from './tile.svelte';
 	import Toast from '../../lib/common/toast.svelte';
 	import Button from '$lib/common/button.svelte';
@@ -12,7 +12,7 @@ import { resolve } from '$app/paths';
 	const npcs: NPC[] = npc;
 	let view = $state('default');
 	let toast = $state('');
-	let npcObject = $state(new NPC());
+	let npcObject = $state({ ...new NPC() });
 	let selectedIndex: number | null = $state(null);
 
 	const copyToClipboard = () => {
@@ -26,15 +26,19 @@ import { resolve } from '$app/paths';
 		setTimeout(() => (toast = ''), 5000);
 	};
 
-	const editHandler = (index: number) => {
-		selectedIndex = index;
-		npcObject = { ...npcs[index] };
+	const editHandler = (index?: number) => {
+		selectedIndex = index ?? null;
+		if (selectedIndex !== null) {
+			npcObject = { ...npcs[index!] };
+		} else {
+			npcObject = { ...new NPC() };
+		}
 		console.log('NPCOBJECT:', npcObject);
 		view = 'edit';
 	};
 
 	const saveHandler = (obj: NPC) => {
-		if (selectedIndex) {
+		if (selectedIndex !== null) {
 			npcs[selectedIndex] = obj;
 		} else {
 			npcs.push(obj);
@@ -56,13 +60,7 @@ import { resolve } from '$app/paths';
 <main>
 	<div class="edit-btn-wrap">
 		{#if view === 'default'}
-			<Button
-				onclick={() => {
-					npcObject = new NPC();
-					selectedIndex = null;
-					view = 'edit';
-				}}>Add NPC</Button
-			>
+			<Button onclick={() => editHandler()}>Add NPC</Button>
 			<Button onclick={copyToClipboard}>Export JSON</Button>
 		{/if}
 	</div>
@@ -90,6 +88,9 @@ import { resolve } from '$app/paths';
 	.edit-btn-wrap {
 		display: flex;
 		gap: 0.5rem;
+		&:empty {
+			display: none;
+		}
 	}
 	.tile-wrap {
 		display: grid;

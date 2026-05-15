@@ -8,11 +8,12 @@
 		hex?: boolean;
 		color?: string;
 		type?: 'button' | 'submit' | 'reset' | null;
+		title?: string;
 	}
-	let { children, onclick, hex, color, type = 'button' }: Props = $props();
+	let { children, onclick, hex, color, type = 'button', title }: Props = $props();
 </script>
 
-<button {type} {onclick} class:hex style:--button-color={color}
+<button {type} {onclick} class:hex style:--button-color={color} {title}
 	><span>{@render children()}</span></button
 >
 
@@ -20,13 +21,14 @@
 	button {
 		align-items: center;
 		background-color: var(--button-color, var(--navy));
-		border-radius: 10rem;
+		border-radius: var(--btn-br, 10rem);
 		border: none;
 		color: #fff;
 		corner-shape: bevel;
 		display: inline-flex;
 		font: 1rem/1 'Elektra Medium Pro';
 		padding: 0.67rem 1.25rem;
+		padding-left: var(--btn-pl, 1.25rem);
 		&.hex {
 			border-radius: 0.5rem;
 			border: 1px solid white;
@@ -36,6 +38,11 @@
 		}
 		&:active {
 			background-color: color-mix(in oklab, var(--button-color, var(--navy)), white 20%);
+		}
+		&:focus {
+			background-color: color-mix(in oklab, var(--button-color, var(--navy)), white 10%);
+			box-shadow: var(--outline);
+			outline: none;
 		}
 		span {
 			padding-top: 0.1rem;
