@@ -19,5 +19,9 @@
 	</select>
 </div>
 
-<style lang="scss">
+<style>
+select,
+::picker(select) {
+  appearance: base-select;
+}
 </style>

@@ -2,12 +2,12 @@
 	import { resolve } from '$app/paths';
 	import npc from '$lib/data/npc';
 	import { NPC } from '$lib/data/types';
-	import CardForm from './card-form.svelte';
-	import Tile from './tile.svelte';
-	import Toast from '../../lib/common/toast.svelte';
-	import Button from '$lib/common/button.svelte';
-	import Header from '$lib/common/header.svelte';
-	import LinkBtn from '$lib/common/link-btn.svelte';
+	import CardForm from './CardForm.svelte';
+	import Tile from './Tile.svelte';
+	import Toast from '../../lib/common/Toast.svelte';
+	import Button from '$lib/common/Button.svelte';
+	import Header from '$lib/common/Header.svelte';
+	import LinkBtn from '$lib/common/LinkBtn.svelte';
 
 	const npcs: NPC[] = npc;
 	let view = $state('default');

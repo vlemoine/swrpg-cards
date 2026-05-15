@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { NPC } from '$lib/data/types';
-	import Characteristic from './characteristic.svelte';
-	import Dice from './dice.svelte';
-	import SpecTitle from './spec-title.svelte';
-	import Stat from './stat.svelte';
-	import Title from './title.svelte';
+	import Characteristic from './Characteristic.svelte';
+	import Dice from './Dice.svelte';
+	import SpecTitle from './SpecTitle.svelte';
+	import Stat from './Stat.svelte';
+	import Title from './Title.svelte';
 	interface Props {
 		data: NPC;
 	}

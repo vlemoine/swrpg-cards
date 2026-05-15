@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Header from '$lib/common/header.svelte';
+	import Header from '$lib/common/Header.svelte';
 	import npc from '$lib/data/npc';
 	import type { NPC } from '$lib/data/types';
 	import { resolve } from '$app/paths';
-	import Card from './card.svelte';
-	import LinkBtn from '$lib/common/link-btn.svelte';
+	import Card from './Card.svelte';
+	import LinkBtn from '$lib/common/LinkBtn.svelte';
 	const npcs: NPC[] = npc;
 </script>
 

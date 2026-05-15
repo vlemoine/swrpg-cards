@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Button from '$lib/common/button.svelte';
-	import FormInput from '$lib/common/formInput.svelte';
+	import Button from '$lib/common/Button.svelte';
 	import { attributes, npcTypes, ranges, skills, weaponTypes } from '$lib/data/objects';
-	import Dice from '../dice.svelte';
-	import FormSelect from '$lib/common/formSelect.svelte';
+	import Dice from '../Dice.svelte';
+	import FormSelect from '$lib/common/FormSelect.svelte';
 	import { NPC, Weapon, type Skill } from '$lib/data/types';
-	import Section from './section.svelte';
-	import FormDatalist from '$lib/common/form-datalist.svelte';
+	import Section from './Section.svelte';
+	import FormDatalist from '$lib/common/FormDatalist.svelte';
+	import FormInput from '$lib/common/FormInput.svelte';
 
 	let { editData = $bindable(new NPC()), onSave = () => {} } = $props();
 	let EditData = $state(editData);
