@@ -7,7 +7,7 @@
 	{@render children()}
 </header>
 
-<style lang="scss">
+<style>
 	header {
 		align-items: center;
 		background-color: var(--red);

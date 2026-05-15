@@ -15,7 +15,7 @@
 	<div>Tier: {data.tier}</div>
 </div>
 
-<style lang="scss">
+<style>
 	.tile {
 		border: 1px solid gray;
 		border-radius: 5px;

@@ -178,7 +178,7 @@
 	</form>
 </div>
 
-<style lang="scss">
+<style>
 	aside {
 		position: sticky;
 		top: 5rem;

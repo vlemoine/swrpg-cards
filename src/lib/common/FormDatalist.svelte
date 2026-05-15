@@ -42,8 +42,7 @@
 		corner-shape: bevel;
 		field-sizing: content;
 		padding: 0.25rem 1rem;
-		font-size: 1rem;
-		font-family: 'ITC Symbol Book';
+		font: 1rem 'ITC Symbol Book';
 		&:focus {
 			min-width: 10ch;
 			box-shadow: var(--outline);

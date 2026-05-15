@@ -45,9 +45,11 @@
 		padding-right: 0.67rem;
 	}
 	.content {
-		padding: 0.5rem 1rem;
+		padding: 0.75rem;
+		padding-bottom: 0.5rem;
 		display: grid;
 		grid-template-columns: var(--columns, 1fr);
+		gap: 1rem;
 		&:empty {
 			display: none;
 		}

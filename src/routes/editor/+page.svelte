@@ -78,7 +78,7 @@
 	{/if}
 </main>
 
-<style lang="scss">
+<style>
 	main {
 		display: flex;
 		flex-direction: column;
