@@ -9,11 +9,12 @@
 		color?: string;
 		type?: 'button' | 'submit' | 'reset' | null;
 		title?: string;
+		center?: boolean;
 	}
-	let { children, onclick, hex, color, type = 'button', title }: Props = $props();
+	let { children, onclick, hex, color, type = 'button', title, center }: Props = $props();
 </script>
 
-<button {type} {onclick} class:hex style:--button-color={color} {title}
+<button {type} {onclick} class:hex class:center style:--button-color={color} {title}
 	><span>{@render children()}</span></button
 >
 
@@ -32,6 +33,9 @@
 		&.hex {
 			border-radius: 0.5rem;
 			border: 1px solid white;
+		}
+		&.center {
+			justify-content: center;
 		}
 		&:hover {
 			background-color: color-mix(in oklab, var(--button-color, var(--navy)), white 10%);

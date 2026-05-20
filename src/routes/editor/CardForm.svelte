@@ -1,12 +1,13 @@
 <script lang="ts">
 	import Button from '$lib/common/Button.svelte';
-	import { attributes, npcTypes, ranges, skills, weaponTypes } from '$lib/data/objects';
-	import Dice from '../Dice.svelte';
-	import FormSelect from '$lib/common/FormSelect.svelte';
-	import { NPC, Weapon, type Skill } from '$lib/data/types';
-	import Section from './Section.svelte';
 	import FormDatalist from '$lib/common/FormDatalist.svelte';
 	import FormInput from '$lib/common/FormInput.svelte';
+	import FormSelect from '$lib/common/FormSelect.svelte';
+	import { attributes, npcTypes, ranges, skills, weaponTypes } from '$lib/data/objects';
+	import { NPC, Weapon, type Skill } from '$lib/data/types';
+	import Section from './Section.svelte';
+	import Dice from '../Dice.svelte';
+	import FormTextarea from '$lib/common/FormTextarea.svelte';
 
 	let { editData = $bindable(new NPC()), onSave = () => {} } = $props();
 	let EditData = $state(editData);
@@ -64,19 +65,47 @@
 			weapons: [...(EditData.weapons || []), new Weapon()]
 		};
 	};
+
+	let activeId: string | null = $state(null);
+	// onMount(() => {
+	// 	const sections = document.querySelectorAll('section[id]');
+	// 	const obs = new IntersectionObserver(
+	// 		(entries) => {
+	// 			// pick the most visible entry (or the first intersecting)
+	// 			let visible = Array.from(entries)
+	// 				.filter((e) => e.isIntersecting)
+	// 				.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+	// 			if (visible) activeId = visible.target.id;
+	// 		},
+	// 		{
+	// 			rootMargin: '80px 0px 0px 0px',
+	// 			scrollMargin: '0px 0px -25% 0px',
+	// 			threshold: 0.5
+	// 		}
+	// 	);
+	// 	sections.forEach((s) => obs.observe(s));
+	// 	onDestroy(() => obs.disconnect());
+	// });
+	const sections = [
+		'Details',
+		'Attributes',
+		'Skills',
+		'Stats',
+		'Talents',
+		'Equipment',
+		'Abilities'
+	];
 </script>
 
 <div class="editor">
 	<aside class="form-sidebar">
 		<Button onclick={() => onSave(EditData)}>Save</Button>
 		<hr />
-		<a href="#details">Details</a>
-		<a href="#attributes">Attributes</a>
-		<a href="#skills">Skills</a>
-		<a href="#stats">Stats</a>
-		<a href="#talents">Talents</a>
-		<a href="#equipment">Equipment</a>
-		<a href="#abilities">Abilities</a>
+		{#each sections as section, i (i)}
+			<a href="#{section.toLowerCase()}" class:active={activeId === section.toLowerCase()}
+				>{section}</a
+			>
+		{/each}
 	</aside>
 
 	<form>
@@ -123,13 +152,16 @@
 			<FormInput title="Melee Defense" bind:value={EditData.defense[0]} short type="number" />
 			<FormInput title="Ranged Defense" bind:value={EditData.defense[1]} short type="number" />
 		</Section>
-		<Section name="Talents">
+		<Section name="Talents" columns="repeat(2, 1fr)">
 			{#snippet actions()}
 				<Button onclick={addTalent} title="Add Talent">
 					<i class="fa-sharp fa-solid fa-plus"></i>
 				</Button>
 			{/snippet}
 			{#each EditData.talents as talent, i (i)}
+				{#if i > 0}
+					<hr style="grid-column: span 2" />
+				{/if}
 				<FormInput title="Name" bind:value={talent.name} />
 				<FormInput title="Value" bind:value={talent.value} short />
 			{/each}
@@ -149,17 +181,19 @@
 					<FormInput title="Damage" bind:value={weapon.dmg} short type="number" />
 					<FormInput title="Crit" bind:value={weapon.crit} short type="number" />
 					<FormInput short title="Limited Ammo Count" bind:value={weapon.count} type="number" />
-					<h4>Weapon Qualities</h4>
-					{#each weapon.qualities as _quality, i (_quality)}
-						<FormInput title="Quality Name and Rating" bind:value={weapon.qualities[i]} />
-					{/each}
-					<button onclick={() => weapon.qualities.push('')}>Add Quality</button>
+					<div class="qualities">
+						<h4>Weapon Qualities</h4>
+						{#each weapon.qualities as _quality, i (_quality)}
+							<FormInput title="Quality Name and Rating" bind:value={weapon.qualities[i]} />
+						{/each}
+						<Button center onclick={() => weapon.qualities.push('')}>Add Quality</Button>
+					</div>
 					<hr />
 				</div>
 			{/each}
 			<FormInput title="Additional Gear" bind:value={EditData.gear} />
 		</Section>
-		<Section name="Abilities">
+		<Section name="Abilities" columns="repeat(2, 1fr)">
 			{#snippet actions()}
 				<Button onclick={addAbility} title="Add Ability">
 					<i class="fa-sharp fa-solid fa-plus"></i>
@@ -167,10 +201,13 @@
 			{/snippet}
 
 			{#each EditData.abilities as _ability, i (_ability)}
+				{#if i > 0}
+					<hr />
+				{/if}
 				<FormInput
 					title={`Ability ${i + 1} Name`}
 					bind:value={EditData.abilities[i].name}
-				/><FormInput
+				/><FormTextarea
 					title={`Ability ${i + 1} Text`}
 					bind:value={EditData.abilities[i].text}
 				/>{/each}
@@ -184,14 +221,31 @@
 		top: 5rem;
 		display: flex;
 		flex-direction: column;
+		gap: 0.5rem;
 		hr {
-			width: 100%;
+			margin: 0;
+		}
+		a {
+			corner-shape: bevel;
+			border-radius: 0.67rem;
+			text-align: center;
+			font: 1rem/2 'Elektra Medium Pro';
+			background-color: color-mix(in oklab, transparent 25%, color-mix(in oklab, var(--gray), var(--navy)));
+			color: #fff;
+			text-decoration: none;
+			&.active {
+				background-color: var(--red);
+			}
 		}
 	}
 	form {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+	}
+	hr {
+		width: 100%;
+		grid-column: 1 / -1;
 	}
 
 	.skill-add {
@@ -206,6 +260,27 @@
 	.skill-wrap {
 		display: flex;
 		align-items: center;
+	}
+	.weapon {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		.qualities {
+			grid-column: 1 / -1;
+		}
+		h4 {
+			margin: 0;
+			font: 1rem/1.5 'Elektra Medium Pro';
+		}
+		.qualities {
+			display: grid;
+			gap: 1rem;
+			padding: 1rem;
+			corner-shape: bevel;
+			border-radius: 1rem;
+			background-color: color-mix(in srgb, var(--brown) 10%, transparent);
+			border: .33rem double color-mix(in oklab, var(--brown), transparent);
+		}
 	}
 
 	.editor {
