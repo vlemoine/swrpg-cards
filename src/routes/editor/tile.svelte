@@ -8,39 +8,50 @@
 </script>
 
 <div class="tile {data.type}">
-	<h2>{data.name}</h2>
-	<div class="edit-icon">
-		<button aria-label="edit-button" onclick={onEdit}> <span class="pencil-ico"></span></button>
-	</div>
-	<div>Tier: {data.tier}</div>
+	<h2>
+		{data.name}
+		<button aria-label="edit-button" onclick={onEdit}
+			><i class="fa-sharp fa-solid fa-pen"></i></button
+		>
+	</h2>
+	<p>Tier: {data.tier}</p>
 </div>
 
 <style>
+	h2 {
+		margin: 0;
+		corner-shape: bevel;
+		border-radius: 1em;
+		background-color: var(--tile-header-bg, var(--minion));
+		color: #fff;
+		font: 1.5rem/1.5 'Elektra Medium Pro';
+		display: flex;
+		padding-left: 1em;
+		justify-content: space-between;
+		overflow: hidden;
+	}
+	button {
+		background-color: var(--navy);
+		border-left: 1px solid #fff;
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		font-size: 1rem;
+		padding-right: 1rem;
+	}
 	.tile {
-		border: 1px solid gray;
-		border-radius: 5px;
-		padding: 20px;
-		position: relative;
-
-		.edit-icon {
-			position: absolute;
-			right: 10px;
-			top: 10px;
-			button {
-				background-color: #333333;
-				border: 0px solid black;
-				border-radius: 50%;
-				cursor: pointer;
-				padding: 5px 7px;
-			}
+		background-color: #fff;
+		border-radius: 1.5rem;
+		border: 1px solid black;
+		corner-shape: bevel;
+		display: grid;
+		padding: 0.5rem 0.75rem;
+		text-align: center;
+		&.nemesis {
+			--tile-header-bg: var(--nemesis);
 		}
-		.pencil-ico {
-			display: inline-block;
-			width: 20px;
-			height: 20px;
-			background-repeat: no-repeat;
-			background-size: 100% 100%;
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z'/%3E%3C/svg%3E");
+		&.rival {
+			--tile-header-bg: var(--rival);
 		}
 	}
 </style>

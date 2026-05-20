@@ -11,6 +11,9 @@
 			margin: 0;
 			overflow-x: hidden;
 			background-color: color-mix(in oklab, var(--brown), #fff 90%);
+			@media print {
+				background-color: #0000;
+			}
 		}
 	</style>
 	<script src="https://kit.fontawesome.com/c55866f247.js" crossorigin="anonymous"></script>
@@ -24,7 +27,11 @@
 		margin: 0.25in;
 	}
 	:root {
+		--brown: #8e5a07;
+		--red: #741213;
+		--gray: #546449;
 		--navy: #0d2548;
+		--green: #164203;
 		font-family:
 			system-ui,
 			-apple-system,
@@ -37,11 +44,10 @@
 			'Open Sans',
 			'Helvetica Neue',
 			sans-serif;
-		--brown: #8e5a07;
-		--red: #741213;
-		--gray: #546449;
-		--navy: #0d2548;
-		--outline:  0 0 0.0625rem 0.125rem gold;
+		--minion: var(--brown);
+		--nemesis: var(--red);
+		--rival: var(--green);
+		--outline: 0 0 0.0625rem 0.125rem gold;
 	}
 	@font-face {
 		font-family: 'EotE Dice';

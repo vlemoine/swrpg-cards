@@ -106,12 +106,10 @@
 	.card {
 		--scale: var(--size, 8px);
 		--bg: url('$lib/assets/bg/card.jpg');
-		--minion: #8e5a07;
-		--nemesis: #741213;
-		--rival: #164203;
 		aspect-ratio: 2.5/3.5;
-		background-size: cover;
+		background-image: var(--type-bg, var(--bg)), var(--bg);
 		background-repeat: no-repeat;
+		background-size: cover;
 		border: var(--bw, 0) dashed #0003;
 		box-sizing: border-box;
 		padding-top: size(35.4);
@@ -120,26 +118,26 @@
 		&.minion,
 		&.operator {
 			--color: var(--minion);
-			background-image: url('$lib/assets/bg/minion.png'), var(--bg);
+			--type-bg: url('$lib/assets/bg/minion.png');
 		}
 		&.rival {
 			--color: var(--rival);
-			background-image: url('$lib/assets/bg/rival.png'), var(--bg);
+			--type-bg: url('$lib/assets/bg/rival.png');
 		}
 		&.nemesis {
 			--color: var(--nemesis);
 		}
 	}
 	.content {
-		padding: size(33) size(35);
 		display: flex;
 		gap: size(24);
+		padding: size(33) size(35);
 	}
 	.summary {
+		align-items: center;
 		display: flex;
 		flex-direction: column;
 		gap: size(19);
-		align-items: center;
 	}
 	.stats {
 		display: grid;
