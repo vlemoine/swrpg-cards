@@ -11,6 +11,7 @@
 	let { data }: Props = $props();
 	let charLabels = ['brawn', 'agility', 'intellect', 'cunning', 'willpower', 'presence'];
 	let statLabels = ['wounds', 'soak value', 'm/r defense', 'strain'];
+	let comma = ', ';
 </script>
 
 <div class="card {data.type}">
@@ -49,16 +50,16 @@
 						({weapon.type}; Damage {weapon.dmg}; Critical {weapon.crit}; Range ({weapon.range});
 						{#if weapon.qualities.length}
 							{#each weapon.qualities as quality, i (i)}
-								{#if i > 0}{', '}{/if}{quality}
+								{#if i > 0}{comma}{/if}{quality}
 							{/each}
 						{:else}-
 						{/if})
 					</div>
 				{/each}
 			</div>
+			{#if data.talents.length !== 0}
 			<div class="talents">
 				<SpecTitle name="Talents" />
-				{#if data.talents.length === 0}-{/if}
 				{#each data.talents as talent, i (i)}
 					<span class="talent"
 						>{talent.name}{#if talent.value}
@@ -66,19 +67,31 @@
 					>
 				{/each}
 			</div>
+			{/if}
+			{#if data.abilities.length !== 0}
 			<div class="abilities">
 				<SpecTitle name="Abilities" />
-				{#if data.abilities.length === 0}-{:else}
 					{#each data.abilities as abi, i (i)}
-						{#if i > 0}<br />{/if}<b>{abi.name}</b><span>{` - ${abi.text}`}</span>
+						{#if i > 0}
+							{#if data.abilities.some((value) => value.text !== '')}
+							<br/>
+							{:else}{comma}{/if}
+						{/if}
+						{#if abi.text !== ''}
+							<span class="ability-name">{abi.name}</span>
+							<span>{abi.text}</span>
+						{:else}
+							{abi.name}
+						{/if}
 					{/each}
-				{/if}
 			</div>
+			{/if}
+			{#if data.gear.length !== 0}
 			<div class="gear">
 				<SpecTitle name="Gear" />
-				{#if data.gear.length === 0}-{/if}
 				<span class="gear">{data.gear}</span>
 			</div>
+			{/if}
 			<div class="desc">{data.desc}</div>
 		</div>
 	</div>
@@ -154,7 +167,8 @@
 	.weapon:has(+ .weapon) {
 		margin-bottom: size(3);
 	}
-	.weapon-name {
+	.weapon-name,
+	.ability-name {
 		font-style: italic;
 		font-weight: bold;
 	}

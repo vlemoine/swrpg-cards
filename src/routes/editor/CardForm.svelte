@@ -269,17 +269,17 @@
 			grid-column: 1 / -1;
 		}
 		h4 {
-			margin: 0;
 			font: 1rem/1.5 'Elektra Medium Pro';
+			margin: 0;
 		}
 		.qualities {
+			background-color: color-mix(in srgb, var(--brown) 10%, transparent);
+			border-radius: 1rem;
+			border: .33rem double color-mix(in oklab, var(--brown), transparent);
+			corner-shape: bevel;
 			display: grid;
 			gap: 1rem;
 			padding: 1rem;
-			corner-shape: bevel;
-			border-radius: 1rem;
-			background-color: color-mix(in srgb, var(--brown) 10%, transparent);
-			border: .33rem double color-mix(in oklab, var(--brown), transparent);
 		}
 	}
 
