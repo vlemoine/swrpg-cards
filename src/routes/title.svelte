@@ -9,7 +9,7 @@
 <style lang="scss">
 	@use 'sass:math';
 	@function size($val) {
-		$calc: math.div($val * 2, 16);
+		$calc: math.div($val, 8);
 		@return calc(#{$calc} * var(--scale, 1rem));
 	}
 	.title {
