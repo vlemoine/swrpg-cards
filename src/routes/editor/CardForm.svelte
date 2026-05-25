@@ -230,7 +230,11 @@
 			border-radius: 0.67rem;
 			text-align: center;
 			font: 1rem/2 'Elektra Medium Pro';
-			background-color: color-mix(in oklab, transparent 25%, color-mix(in oklab, var(--gray), var(--navy)));
+			background-color: color-mix(
+				in oklab,
+				transparent 25%,
+				color-mix(in oklab, var(--gray), var(--navy))
+			);
 			color: #fff;
 			text-decoration: none;
 			&.active {
@@ -275,7 +279,7 @@
 		.qualities {
 			background-color: color-mix(in srgb, var(--brown) 10%, transparent);
 			border-radius: 1rem;
-			border: .33rem double color-mix(in oklab, var(--brown), transparent);
+			border: 0.33rem double color-mix(in oklab, var(--brown), transparent);
 			corner-shape: bevel;
 			display: grid;
 			gap: 1rem;

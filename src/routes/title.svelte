@@ -1,15 +1,15 @@
 <script lang="ts">
-    let { name } = $props();
+	let { name } = $props();
 </script>
 
 <div class="title">
-    { name }
+	{name}
 </div>
 
 <style lang="scss">
 	@use 'sass:math';
 	@function size($val) {
-		$calc:  math.div($val * 2, 16);
+		$calc: math.div($val * 2, 16);
 		@return calc(#{$calc} * var(--scale, 1rem));
 	}
 	.title {
@@ -20,9 +20,9 @@
 		color: #fff;
 		corner-shape: bevel;
 		display: grid;
-		font: bold size(33.3)/1 'Elektra Medium Pro';
+		font: bold size(33.3) / 1 'Elektra Medium Pro';
 		height: size(78);
-		padding-top: .5ex;
+		padding-top: 0.5ex;
 		place-items: center;
 		text-box-trim: trim-both;
 		text-transform: uppercase;

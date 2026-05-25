@@ -2,7 +2,7 @@
 
 type Range = 'Engaged' | 'Short' | 'Medium' | 'Long' | 'Extreme';
 
-type NPCType =  'minion' | 'rival' | 'nemesis' | 'operator';
+type NPCType = 'minion' | 'rival' | 'nemesis' | 'operator';
 
 export interface Skill {
 	name: string;
@@ -13,7 +13,6 @@ export interface optionObj {
 	label: string;
 	value: string;
 }
-
 
 export class Weapon {
 	name = '';
@@ -32,7 +31,7 @@ export class NPC {
 	type: NPCType = 'operator';
 	isGroup = false;
 	characteristics = [0, 0, 0, 0, 0, 0];
-	stats: Array<number | number[]> = [0, 0]
+	stats: Array<number | number[]> = [0, 0];
 	skills: Skill[] = [];
 	weapons: Weapon[] = [];
 	talents: { name: string; value?: string }[] = [];

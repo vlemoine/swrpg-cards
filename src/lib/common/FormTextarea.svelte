@@ -5,7 +5,7 @@
 		value: unknown;
 	}
 
-	let { short, title,  value = $bindable('') }: Props = $props();
+	let { short, title, value = $bindable('') }: Props = $props();
 	const id = $derived(`${title}-input`);
 	const classes = ['text-field'];
 	$effect(() => {

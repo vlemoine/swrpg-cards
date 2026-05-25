@@ -58,23 +58,23 @@
 				{/each}
 			</div>
 			{#if data.talents.length !== 0}
-			<div class="talents">
-				<SpecTitle name="Talents" />
-				{#each data.talents as talent, i (i)}
-					<span class="talent"
-						>{talent.name}{#if talent.value}
-							{talent.value}{/if}</span
-					>
-				{/each}
-			</div>
+				<div class="talents">
+					<SpecTitle name="Talents" />
+					{#each data.talents as talent, i (i)}
+						<span class="talent"
+							>{talent.name}{#if talent.value}
+								{talent.value}{/if}</span
+						>
+					{/each}
+				</div>
 			{/if}
 			{#if data.abilities.length !== 0}
-			<div class="abilities">
-				<SpecTitle name="Abilities" />
+				<div class="abilities">
+					<SpecTitle name="Abilities" />
 					{#each data.abilities as abi, i (i)}
 						{#if i > 0}
 							{#if data.abilities.some((value) => value.text !== '')}
-							<br/>
+								<br />
 							{:else}{comma}{/if}
 						{/if}
 						{#if abi.text !== ''}
@@ -84,13 +84,13 @@
 							{abi.name}
 						{/if}
 					{/each}
-			</div>
+				</div>
 			{/if}
 			{#if data.gear.length !== 0}
-			<div class="gear">
-				<SpecTitle name="Gear" />
-				<span class="gear">{data.gear}</span>
-			</div>
+				<div class="gear">
+					<SpecTitle name="Gear" />
+					<span class="gear">{data.gear}</span>
+				</div>
 			{/if}
 			<div class="desc">{data.desc}</div>
 		</div>
