@@ -4,9 +4,11 @@
 		title: string;
 		type?: string;
 		value: unknown;
+		min?: string;
+		style?: string | null;
 	}
 
-	let { short, title, type = 'text', value = $bindable('') }: Props = $props();
+	let { short, title, type = 'text', min = $bindable('0'), value = $bindable(''), style }: Props = $props();
 	const id = $derived(`${title}-input`);
 	const classes = ['text-field'];
 	$effect(() => {
@@ -15,9 +17,9 @@
 	});
 </script>
 
-<div class={classes.join(' ')}>
+<div class={classes.join(' ')} {style}>
 	<label for={id}>{title}</label>
-	<input bind:value {type} {id} />
+	<input bind:value {type} {id} {min} />
 </div>
 
 <style>

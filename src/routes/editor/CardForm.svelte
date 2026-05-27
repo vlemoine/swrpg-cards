@@ -62,30 +62,12 @@
 	const addWeapon = () => {
 		EditData = {
 			...EditData,
-			weapons: [...(EditData.weapons || []), new Weapon()]
+			weapons: [...(EditData.weapons || []), {...new Weapon()}]
 		};
 	};
 
 	let activeId: string | null = $state(null);
-	// onMount(() => {
-	// 	const sections = document.querySelectorAll('section[id]');
-	// 	const obs = new IntersectionObserver(
-	// 		(entries) => {
-	// 			// pick the most visible entry (or the first intersecting)
-	// 			let visible = Array.from(entries)
-	// 				.filter((e) => e.isIntersecting)
-	// 				.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-	// 			if (visible) activeId = visible.target.id;
-	// 		},
-	// 		{
-	// 			rootMargin: '80px 0px 0px 0px',
-	// 			scrollMargin: '0px 0px -25% 0px',
-	// 			threshold: 0.5
-	// 		}
-	// 	);
-	// 	sections.forEach((s) => obs.observe(s));
-	// 	onDestroy(() => obs.disconnect());
-	// });
+
 	const sections = [
 		'Details',
 		'Attributes',
@@ -95,6 +77,10 @@
 		'Equipment',
 		'Abilities'
 	];
+
+	const removeQuality = (weapon: Weapon, index: number) => {
+		weapon.qualities.splice(index, 1);
+	}
 </script>
 
 <div class="editor">
@@ -113,7 +99,7 @@
 			<FormInput title="Name" bind:value={EditData.name} />
 			<FormInput title="Description" bind:value={EditData.desc} />
 			<FormSelect title="Type" bind:value={EditData.type} options={npcTypes} />
-			<FormInput title="Tier" bind:value={EditData.tier} short type="number" />
+			<FormInput title="Tier" bind:value={EditData.tier} short type="number" min="0" />
 		</Section>
 		<Section name="Attributes" columns="repeat(3, 1fr)">
 			{#each EditData.characteristics as _, i (i)}
@@ -183,8 +169,11 @@
 					<FormInput short title="Limited Ammo Count" bind:value={weapon.count} type="number" />
 					<div class="qualities">
 						<h4>Weapon Qualities</h4>
-						{#each weapon.qualities as _quality, i (_quality)}
-							<FormInput title="Quality Name and Rating" bind:value={weapon.qualities[i]} />
+						{#each weapon.qualities as _quality, i (i)}
+							<div style="display:flex;align-items: end;gap:.5rem">
+								<FormInput style="flex: 1" title="Quality Name and Rating" bind:value={weapon.qualities[i]} />
+								<Button hex onclick={() => removeQuality(weapon, i)}>Remove</Button>
+							</div>
 						{/each}
 						<Button center onclick={() => weapon.qualities.push('')}>Add Quality</Button>
 					</div>
