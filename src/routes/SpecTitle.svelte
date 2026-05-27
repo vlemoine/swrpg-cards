@@ -15,7 +15,7 @@
 	}
 	.title {
 		color: var(--color);
-    font: bold size(25) / 1 'Teuton Fett';
+		font: bold size(25) / 1 'Teuton Fett';
 		padding-bottom: size(3);
 		text-transform: uppercase;
 	}

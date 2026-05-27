@@ -1,17 +1,18 @@
 <script lang="ts">
-	import npc from '$lib/data/npc';
-
-	import { NPC } from '$lib/data/types';
-	import CardForm from './cardForm.svelte';
-	import Tile from './tile.svelte';
-	import Toast from '../../lib/common/toast.svelte';
-	import Header from '$lib/common/header.svelte';
 	import { resolve } from '$app/paths';
-	import LinkBtn from '$lib/common/link-btn.svelte';
+	import npc from '$lib/data/npc';
+	import { NPC } from '$lib/data/types';
+	import CardForm from './CardForm.svelte';
+	import Tile from './Tile.svelte';
+	import Toast from '../../lib/common/Toast.svelte';
+	import Button from '$lib/common/Button.svelte';
+	import Header from '$lib/common/Header.svelte';
+	import LinkBtn from '$lib/common/LinkBtn.svelte';
+
 	const npcs: NPC[] = npc;
 	let view = $state('default');
 	let toast = $state('');
-	let npcObject = $state(new NPC());
+	let npcObject = $state({ ...new NPC() });
 	let selectedIndex: number | null = $state(null);
 
 	const copyToClipboard = () => {
@@ -25,15 +26,19 @@
 		setTimeout(() => (toast = ''), 5000);
 	};
 
-	const editHandler = (index: number) => {
-		selectedIndex = index;
-		npcObject = { ...npcs[index] };
+	const editHandler = (index?: number) => {
+		selectedIndex = index ?? null;
+		if (selectedIndex !== null) {
+			npcObject = { ...npcs[index!] };
+		} else {
+			npcObject = { ...new NPC() };
+		}
 		console.log('NPCOBJECT:', npcObject);
 		view = 'edit';
 	};
 
 	const saveHandler = (obj: NPC) => {
-		if (selectedIndex) {
+		if (selectedIndex !== null) {
 			npcs[selectedIndex] = obj;
 		} else {
 			npcs.push(obj);
@@ -45,23 +50,19 @@
 </script>
 
 <Header>
+	{#if view === 'edit'}
+		<Button onclick={() => (view = 'default')} hex>Return to NPC List</Button>
+	{/if}
 	<LinkBtn href={resolve('/')} title="View cards">
 		<i class="fa-sharp fa-solid fa-cards-blank"></i>
 	</LinkBtn>
 </Header>
-<div>
+<main>
 	<div class="edit-btn-wrap">
 		{#if view === 'default'}
-			<button
-				onclick={() => {
-					npcObject = new NPC();
-					selectedIndex = null;
-					view = 'edit';
-				}}>Add NPC</button
-			>
-			<button onclick={copyToClipboard}>Export JSON</button>
-		{:else}
-			<button onclick={() => (view = 'default')}>Return to NPC List</button>{/if}
+			<Button onclick={() => editHandler()}>Add NPC</Button>
+			<Button onclick={copyToClipboard}>Export JSON</Button>
+		{/if}
 	</div>
 	{#if view === 'default'}
 		<div class="tile-wrap">
@@ -75,24 +76,25 @@
 	{#if toast.length > 0}
 		<Toast>{toast}</Toast>
 	{/if}
-</div>
+</main>
 
-<style lang="scss">
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1rem;
+	}
 	.edit-btn-wrap {
-		button {
-			background-color: #333333;
-			border: 0px solid black;
-			border-radius: 5px;
-			color: #fff;
-			font-size: 14px;
-			font-weight: bold;
-			margin: 10px;
-			padding: 10px 15px;
+		display: flex;
+		gap: 0.5rem;
+		&:empty {
+			display: none;
 		}
 	}
 	.tile-wrap {
 		display: grid;
+		gap: 1rem;
 		grid-template-columns: repeat(3, 1fr);
-		grid-gap: 10px;
 	}
 </style>

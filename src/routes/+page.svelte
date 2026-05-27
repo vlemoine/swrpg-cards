@@ -1,22 +1,22 @@
 <script lang="ts">
-	import Header from '$lib/common/header.svelte';
+	import Header from '$lib/common/Header.svelte';
 	import npc from '$lib/data/npc';
 	import type { NPC } from '$lib/data/types';
 	import { resolve } from '$app/paths';
-	import Card from './card.svelte';
-	import LinkBtn from '$lib/common/link-btn.svelte';
+	import Card from './Card.svelte';
+	import LinkBtn from '$lib/common/LinkBtn.svelte';
 	const npcs: NPC[] = npc;
 </script>
 
 <Header>
 	<div class="view">
 		<label for="list" title="List view"
-			><input type="radio" name="view" id="list" checked />
+			><input type="radio" name="view" id="list" />
 			<i class="fa-sharp fa-solid fa-cards-blank checked"></i>
 			<i class="fa-sharp fa-regular fa-cards-blank unchecked"></i>
 		</label>
 		<label for="grid" title="Grid view"
-			><input type="radio" name="view" id="grid" />
+			><input type="radio" name="view" id="grid" checked />
 			<i class="fa-sharp fa-solid fa-grid-2 checked"></i>
 			<i class="fa-sharp fa-regular fa-grid-2 unchecked"></i>
 		</label>
@@ -65,13 +65,11 @@
 				color: #fff;
 			}
 			&:has(input:focus) {
-				box-shadow: 0 0 0.0625rem 0.125rem gold;
+				box-shadow: var(--outline);
 				z-index: 2;
 			}
 		}
-		label:has(:checked) .unchecked {
-			display: none;
-		}
+		label:has(:checked) .unchecked,
 		label:not(:has(:checked)) .checked {
 			display: none;
 		}

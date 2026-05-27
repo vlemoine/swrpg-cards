@@ -1,4 +1,4 @@
-<script lang="ts"> 
+<script lang="ts">
 	interface Props {
 		jsonStr: string;
 	}
@@ -9,7 +9,7 @@
 	<pre>{jsonStr}</pre>
 </div>
 
-<style lang="scss">
+<style>
 	.export-tray {
 		background: gray;
 		border: 1px solid #111;

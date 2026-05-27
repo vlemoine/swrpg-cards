@@ -1,16 +1,17 @@
 <script lang="ts">
 	import type { NPC } from '$lib/data/types';
-	import Characteristic from './characteristic.svelte';
-	import Dice from './dice.svelte';
-	import SpecTitle from './spec-title.svelte';
-	import Stat from './stat.svelte';
-	import Title from './title.svelte';
+	import Characteristic from './Characteristic.svelte';
+	import Dice from './Dice.svelte';
+	import SpecTitle from './SpecTitle.svelte';
+	import Stat from './Stat.svelte';
+	import Title from './Title.svelte';
 	interface Props {
 		data: NPC;
 	}
 	let { data }: Props = $props();
 	let charLabels = ['brawn', 'agility', 'intellect', 'cunning', 'willpower', 'presence'];
 	let statLabels = ['wounds', 'soak value', 'm/r defense', 'strain'];
+	let comma = ', ';
 </script>
 
 <div class="card {data.type}">
@@ -49,36 +50,48 @@
 						({weapon.type}; Damage {weapon.dmg}; Critical {weapon.crit}; Range ({weapon.range});
 						{#if weapon.qualities.length}
 							{#each weapon.qualities as quality, i (i)}
-								{#if i > 0}{', '}{/if}{quality}
+								{#if i > 0}{comma}{/if}{quality}
 							{/each}
 						{:else}-
 						{/if})
 					</div>
 				{/each}
 			</div>
-			<div class="talents">
-				<SpecTitle name="Talents" />
-				{#if data.talents.length === 0}-{/if}
-				{#each data.talents as talent, i (i)}
-					<span class="talent"
-						>{talent.name}{#if talent.value}
-							{talent.value}{/if}</span
-					>
-				{/each}
-			</div>
-			<div class="abilities">
-				<SpecTitle name="Abilities" />
-				{#if data.abilities.length === 0}-{:else}
-					{#each data.abilities as abi, i (i)}
-						{#if i > 0}<br />{/if}<b>{abi.name}</b><span>{` - ${abi.text}`}</span>
+			{#if data.talents.length !== 0}
+				<div class="talents">
+					<SpecTitle name="Talents" />
+					{#each data.talents as talent, i (i)}
+						<span class="talent"
+							>{talent.name}{#if talent.value}
+								{talent.value}{/if}</span
+						>
 					{/each}
-				{/if}
-			</div>
-			<div class="gear">
-				<SpecTitle name="Gear" />
-				{#if data.gear.length === 0}-{/if}
-				<span class="gear">{data.gear}</span>
-			</div>
+				</div>
+			{/if}
+			{#if data.abilities.length !== 0}
+				<div class="abilities">
+					<SpecTitle name="Abilities" />
+					{#each data.abilities as abi, i (i)}
+						{#if i > 0}
+							{#if data.abilities.some((value) => value.text !== '')}
+								<br />
+							{:else}{comma}{/if}
+						{/if}
+						{#if abi.text !== ''}
+							<span class="ability-name">{abi.name}</span>
+							<span>{abi.text}</span>
+						{:else}
+							{abi.name}
+						{/if}
+					{/each}
+				</div>
+			{/if}
+			{#if data.gear.length !== 0}
+				<div class="gear">
+					<SpecTitle name="Gear" />
+					<span class="gear">{data.gear}</span>
+				</div>
+			{/if}
 			<div class="desc">{data.desc}</div>
 		</div>
 	</div>
@@ -93,12 +106,10 @@
 	.card {
 		--scale: var(--size, 8px);
 		--bg: url('$lib/assets/bg/card.jpg');
-		--minion: #8e5a07;
-		--nemesis: #741213;
-		--rival: #164203;
 		aspect-ratio: 2.5/3.5;
-		background-size: cover;
+		background-image: var(--type-bg, var(--bg)), var(--bg);
 		background-repeat: no-repeat;
+		background-size: cover;
 		border: var(--bw, 0) dashed #0003;
 		box-sizing: border-box;
 		padding-top: size(35.4);
@@ -107,26 +118,26 @@
 		&.minion,
 		&.operator {
 			--color: var(--minion);
-			background-image: url('$lib/assets/bg/minion.png'), var(--bg);
+			--type-bg: url('$lib/assets/bg/minion.png');
 		}
 		&.rival {
 			--color: var(--rival);
-			background-image: url('$lib/assets/bg/rival.png'), var(--bg);
+			--type-bg: url('$lib/assets/bg/rival.png');
 		}
 		&.nemesis {
 			--color: var(--nemesis);
 		}
 	}
 	.content {
-		padding: size(33) size(35);
 		display: flex;
 		gap: size(24);
+		padding: size(33) size(35);
 	}
 	.summary {
+		align-items: center;
 		display: flex;
 		flex-direction: column;
 		gap: size(19);
-		align-items: center;
 	}
 	.stats {
 		display: grid;
@@ -154,7 +165,8 @@
 	.weapon:has(+ .weapon) {
 		margin-bottom: size(3);
 	}
-	.weapon-name {
+	.weapon-name,
+	.ability-name {
 		font-style: italic;
 		font-weight: bold;
 	}

@@ -40,12 +40,12 @@
 		font-size: size(56.7);
 		left: 0;
 		margin: auto;
-		padding-top: .2ex;
+		padding-top: 0.2ex;
 		place-items: center;
 		position: absolute;
 		right: 0;
 		text-box-trim: trim-both;
-		text-indent: -.025ex;
+		text-indent: -0.025ex;
 		top: size(6);
 		width: size(85);
 	}
