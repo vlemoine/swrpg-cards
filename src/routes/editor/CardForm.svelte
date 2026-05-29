@@ -99,7 +99,7 @@
       <FormInput title="Name" bind:value={EditData.name} />
       <FormInput title="Description" bind:value={EditData.desc} />
       <FormSelect title="Type" bind:value={EditData.type} options={npcTypes} />
-      <FormInput title="Tier" bind:value={EditData.tier} short type="number" min="0" />
+      <FormInput title="Tier" bind:value={EditData.tier} short type="number" />
     </Section>
     <Section name="Attributes" columns="repeat(3, 1fr)">
       {#each EditData.characteristics as _, i (i)}
