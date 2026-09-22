@@ -493,6 +493,111 @@ const NPCS: NPC[] = [
 				qualities: ['Cumbersome 3', 'Defensive 1', 'Superior']
 			}
 		]
+	},
+	{
+		defense: [0, 0],
+		desc: 'Cold, disciplined',
+		name: 'Vexa Torr',
+		type: 'operator',
+		isGroup: false,
+		characteristics: [3, 3, 2, 3, 1, 1],
+		stats: [12, 5],
+		skills: [
+			{
+				name: 'Brawl',
+				dice: 'yyg'
+			},
+			{
+				name: 'Mechanics',
+				dice: 'yy'
+			},
+			{
+				name: 'Ranged [Light]',
+				dice: 'yyg'
+			},
+			{
+				name: 'Skullduggery',
+				dice: 'yyg'
+			},
+			{
+				name: 'Stealth',
+				dice: 'yyg'
+			},
+			{
+				name: 'Vigilance',
+				dice: 'ygg'
+			}
+		],
+		weapons: [
+			{
+				name: 'Heavy Blaster Pistol',
+				type: 'Ranged [Light]',
+				dmg: 7,
+				crit: 3,
+				count: 0,
+				range: 'Medium',
+				qualities: ['Stun Setting']
+			}
+		],
+		talents: [],
+		tier: 1,
+		abilities: [],
+		gear: 'Combat gear (+2 Soak), Integrated comlink'
+	},
+	{
+		defense: [0, 0],
+		desc: 'Professional, detached',
+		name: 'Drax Morn',
+		type: 'operator',
+		isGroup: false,
+		characteristics: [2, 3, 2, 3, 2, 2],
+		stats: [12, 4],
+		skills: [
+			{
+				name: 'Melee',
+				dice: 'yy'
+			},
+			{
+				name: 'Perception',
+				dice: 'ygg'
+			},
+			{
+				name: 'Ranged [Light]',
+				dice: 'yyg'
+			},
+			{
+				name: 'Skullduggery',
+				dice: 'yyg'
+			},
+			{
+				name: 'Stealth',
+				dice: 'yyy'
+			}
+		],
+		weapons: [
+			{
+				name: 'Light blaster pistol',
+				type: 'Ranged [Light]',
+				dmg: 5,
+				crit: 4,
+				count: 0,
+				range: 'Medium',
+				qualities: []
+			},
+			{
+				name: 'Vibroknife',
+				type: 'Melee',
+				dmg: 3,
+				crit: 2,
+				count: 0,
+				range: 'Engaged',
+				qualities: []
+			}
+		],
+		talents: [],
+		tier: 1,
+		abilities: [],
+		gear: 'Reinforced blast vest (+2 Soak), Encrypted comlink'
 	}
 ];
 //// END COPY ABOVE
