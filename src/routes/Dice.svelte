@@ -1,16 +1,19 @@
 <script lang="ts">
 	type Die = 'g' | 'p' | 'y' | 'r' | 'b' | 'k' | 'w' | 'a';
-	let { dice } = $props();
+	let { dice, inline } = $props();
 	let _dice: Array<Die> = $derived([...dice]);
 	const map = {
-		g: { color: '#3da547', char: '\uE93F' },
-		p: { color: 'purple', char: '\uE93F' },
-		y: { color: 'yellow', char: '\uE941' },
-		r: { color: 'red', char: '\uE941' },
+		a: { color: 'black', char: '' },
 		b: { color: 'skyblue', char: '\uE93D' },
+		d: { color: 'black', char: '\uE908' },
+		f: { color: 'black', char: '\uE90A' },
+		g: { color: '#3da547', char: '\uE93F' },
 		k: { color: 'black', char: '\uE93D' },
+		l: { color: 'black', char: '\uE909' },
+		p: { color: 'purple', char: '\uE93F' },
+		r: { color: 'red', char: '\uE941' },
 		w: { color: 'white', char: '\uE941' },
-		a: { color: 'black', char: '' }
+		y: { color: 'yellow', char: '\uE941' }
 	};
 	function char(die: Die) {
 		return map[die].char;
@@ -20,7 +23,7 @@
 	}
 </script>
 
-<span class="dice">
+<span class="dice {inline ? 'inline' : ''}">
 	{#each _dice as die, i (i)}
 		<span class="die {die}" style:--die={color(die)}>
 			{char(die)}
@@ -46,9 +49,14 @@
 			content: ')';
 			margin-left: size(2);
 		}
+		&.inline {
+			&::before,
+			&::after {
+				content: '';
+			}
+		}
 	}
 	.die {
-		-webkit-text-stroke: size(2) black;
 		color: var(--die, pink);
 		display: inline-block;
 		font-family: 'EotE Dice';
@@ -57,6 +65,7 @@
 		vertical-align: middle;
 		&.g,
 		&.p {
+			-webkit-text-stroke: size(2) black;
 			margin-right: -0.25ch;
 			&:has(+ .y) {
 				margin-right: -0.4ch;
@@ -64,6 +73,7 @@
 		}
 		&.r,
 		&.y {
+			-webkit-text-stroke: size(2) black;
 			margin-right: -0.1ch;
 			&:first-child {
 				margin-left: 0.2ch;
@@ -71,6 +81,9 @@
 			&:last-child {
 				margin-right: -0.25ch;
 			}
+		}
+		&.b {
+			-webkit-text-stroke: size(2) black;
 		}
 	}
 </style>
