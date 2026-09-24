@@ -1,5 +1,3 @@
-import type { NPC } from './types';
-//// START COPY HERE
 const NPCS: NPC[] = [
 	{
 		name: 'Bark Rat',
@@ -265,11 +263,16 @@ const NPCS: NPC[] = [
 		]
 	},
 	{
-		abilities: [],
+		abilities: [
+			{
+				name: 'Force Power: Ebb/Flow',
+				text: 'When making a skill check, roll an Ebb/Flow power check as part of the pool and spend [[f]] to Ebb: suffer 1 Strain to inflict 1 Strain on all Engaged Creatures. Flow: Heal 1 Strain. May spend [[f]][[f]] to affect all targets in Short range. May spend additional [[f]] to increase the strain healed or inflicted by 1.'
+			}
+		],
 		characteristics: [3, 2, 2, 2, 3, 2],
-		defense: [1, 1],
+		defense: [2, 2],
 		desc: 'A promising young Zabrak.',
-		gear: 'Robes - Soak: 1',
+		gear: 'Armored Robes - Soak: 2; Defense 1',
 		isGroup: false,
 		name: 'Ordas Kena',
 		skills: [
@@ -279,7 +282,7 @@ const NPCS: NPC[] = [
 			},
 			{
 				name: 'Lightsaber',
-				dice: 'yyg'
+				dice: 'yyy'
 			},
 			{
 				name: 'Perception',
@@ -287,21 +290,21 @@ const NPCS: NPC[] = [
 			},
 			{
 				name: 'Resilience',
-				dice: 'ygg'
+				dice: 'yyg'
 			},
 			{
 				name: 'Vigilance',
 				dice: 'ygg'
 			}
 		],
-		stats: [12, 4],
+		stats: [14, 5],
 		talents: [
 			{
 				name: 'Force Rating',
-				value: '1'
+				value: '2'
 			}
 		],
-		tier: 1,
+		tier: 2,
 		type: 'operator',
 		weapons: [
 			{
@@ -551,7 +554,7 @@ const NPCS: NPC[] = [
 		type: 'operator',
 		isGroup: false,
 		characteristics: [2, 3, 2, 3, 2, 2],
-		stats: [12, 4],
+		stats: [14, 4],
 		skills: [
 			{
 				name: 'Melee',
@@ -559,11 +562,11 @@ const NPCS: NPC[] = [
 			},
 			{
 				name: 'Perception',
-				dice: 'ygg'
+				dice: 'yyg'
 			},
 			{
 				name: 'Ranged [Light]',
-				dice: 'yyg'
+				dice: 'yyy'
 			},
 			{
 				name: 'Skullduggery',
@@ -576,13 +579,13 @@ const NPCS: NPC[] = [
 		],
 		weapons: [
 			{
-				name: 'Light blaster pistol',
+				name: 'SE-14r Light Repeating Blaster',
 				type: 'Ranged [Light]',
-				dmg: 5,
-				crit: 4,
+				dmg: 6,
+				crit: 3,
 				count: 0,
 				range: 'Medium',
-				qualities: []
+				qualities: ['Auto Fire', 'Stun Setting']
 			},
 			{
 				name: 'Vibroknife',
@@ -594,8 +597,13 @@ const NPCS: NPC[] = [
 				qualities: []
 			}
 		],
-		talents: [],
-		tier: 1,
+		talents: [
+			{
+				name: 'Stalker',
+				value: '1'
+			}
+		],
+		tier: 2,
 		abilities: [],
 		gear: 'Reinforced blast vest (+2 Soak), Encrypted comlink'
 	}

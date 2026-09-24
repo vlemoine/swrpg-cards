@@ -17,6 +17,10 @@
 <div class="card {data.type}">
 	<div class="header">
 		<Title name={data.name} />
+		<div class="tier-indicator">
+			<div class="label">Tier</div>
+			<div class="tier-val">{data.tier}</div>
+		</div>
 	</div>
 	<div class="content">
 		<div class="summary">
@@ -63,7 +67,7 @@
 					{#each data.talents as talent, i (i)}
 						<span class="talent"
 							>{talent.name}{#if talent.value}
-								{talent.value}{/if}</span
+								{' ' + talent.value}{/if}</span
 						>
 					{/each}
 				</div>
@@ -79,7 +83,15 @@
 						{/if}
 						{#if abi.text !== ''}
 							<span class="ability-name">{abi.name}</span>
-							<span>{abi.text}</span>
+							<span>
+								{#each abi.text.split('[[') as str, i (i)}
+									{#if str.includes(']]')}
+										<Dice dice={str.split(']]')[0]} inline /> {str.split(']]')[1]}
+									{:else}
+										{str}
+									{/if}
+								{/each}
+							</span>
 						{:else}
 							{abi.name}
 						{/if}
@@ -126,6 +138,31 @@
 		}
 		&.nemesis {
 			--color: var(--nemesis);
+		}
+	}
+	.header {
+		display: flex;
+
+		.tier-indicator {
+			align-items: center;
+			background: #fff;
+			border-radius: size(18);
+			color: var(--color);
+			border: 2px solid var(--color);
+			corner-shape: bevel;
+			display: flex;
+
+			font: bold size(15) / 1 'Elektra Medium Pro';
+			flex-flow: row wrap;
+			justify-content: center;
+			margin: 0px 10px;
+			padding: 6px 2% 2px;
+
+			.tier-val {
+				width: 100%;
+				text-align: center;
+				font-size: 1.5rem;
+			}
 		}
 	}
 	.content {
